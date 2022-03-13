@@ -1,0 +1,35 @@
+.game-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 50px;
+
+    height: 305px;
+}
+
+.game-container div {
+    flex-basis: 540px;
+}
+
+.row-reverse {
+    flex-direction: row-reverse;
+}
+
+.card-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    align-self: flex-end;
+}
+
+.layer-2 {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+}
+
+.game-buttons {
+    display: flex;
+    align-items: center;
+}

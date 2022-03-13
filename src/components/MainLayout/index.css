@@ -1,0 +1,105 @@
+html, body {
+    margin: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
+    background: black;
+    color: white;
+}
+
+.page-section {
+    padding: 0 50px;
+}
+
+/* FONT */
+
+.text-blue {
+    color: #5966DD;
+}
+
+.text-pink {
+    color: #C8168F;
+}
+
+h1, h2 {
+    margin: 0;
+    text-shadow: 0px 0px 17px rgba(255, 255, 255, 0.5);
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 60px;
+    font-size: 36px;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+h4 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.rules-text-button {
+    margin-left: 20px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* BUTTON */
+
+button {
+    color: white;
+
+    height: 50px;
+    width: 190px;
+    padding: 0 10px;
+
+    background: linear-gradient(90deg, #5966DD 0%, #C8168F 100%);
+    border: 3px solid white;
+    border-radius: 42px;
+
+    transition: border 0.1s linear;
+}
+
+button:hover {
+    cursor: pointer;
+    border-width: 0px;
+}
+
+button span {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* LINKS */
+
+p.footer-item > a {
+    color: #777881;
+    text-decoration: none;
+}
+
+p.footer-item > a:hover {
+    text-decoration: underline;
+}
+
+p.rules-text-button > a {
+    color: #FFF;
+    text-decoration: none;
+}
+
+p.rules-text-button > a:hover {
+    text-decoration: underline;
+}

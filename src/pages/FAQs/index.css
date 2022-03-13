@@ -1,0 +1,15 @@
+.faqs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wo-banner-h1 {
+    text-align: center;
+    margin: 50px 0;
+}
+
+.faqs-container {
+    width: 100%;
+    margin-bottom: 50px;
+}

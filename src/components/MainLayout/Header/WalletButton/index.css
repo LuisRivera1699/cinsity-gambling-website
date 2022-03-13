@@ -1,0 +1,28 @@
+.wallet-button {
+    height: 40px;
+    width: 190px;
+
+    background: white;
+    border: 1px solid white;
+    border-radius: 42px;
+
+    color: #191D40;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wallet-button:hover {
+    cursor: pointer;
+}
+
+.wallet-button > span {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.wallet-button > img {
+    margin-left: 5px;
+}
+

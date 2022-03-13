@@ -1,0 +1,32 @@
+.question {
+    background: #4D4D4D;
+    border-radius: 42px;
+
+    padding: 15px 25px;
+    margin-bottom: 20px;
+}
+
+.question.pink {
+    background: #C8168F;
+    margin-bottom: 0;
+}
+
+.question.blue {
+    background: #191D40;
+}
+
+.question:hover {
+    cursor: pointer;
+}
+
+.question h4 {
+    margin: 0;
+}
+
+.answer {
+    padding: 20px 25px;
+}
+
+.answer p {
+    margin: 0;
+}

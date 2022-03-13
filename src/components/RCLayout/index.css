@@ -1,0 +1,47 @@
+.rc-banner {
+    min-height: 350px;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    margin-bottom: 50px;
+}
+
+.rc-banner.baccarat {
+    background-image: url(./assets/baccarat.png);
+}
+
+.rc-banner.blackjack {
+    background-image: url(./assets/blackjack.png);
+}
+
+.rc-banner.craps {
+    background-image: url(./assets/craps.png);
+}
+
+.rc-banner.poker {
+    background-image: url(./assets/poker.png);
+}
+
+.rc-banner.tyc {
+    background-image: url(./assets/tyc.png);
+}
+
+.rc-banner.policies {
+    background-image: url(./assets/ppolicies.png);
+}
+
+.rc-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rc-text {
+    margin-bottom: 50px;
+}

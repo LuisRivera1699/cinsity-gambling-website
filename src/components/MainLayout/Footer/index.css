@@ -1,0 +1,44 @@
+footer {
+    background: #191D40;
+    
+    padding: 50px 50px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    color: #777881;
+}
+
+footer div {
+    flex-basis: 190px;
+}
+
+.copyright  {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.footer-item {
+    margin: 15px 0;
+
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.footer-item:hover {
+    cursor: pointer;
+}
+
+h5 {
+    margin-top: 0px;
+    margin-bottom: 20px;
+
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.discord {
+    margin-left: 20px;
+}
