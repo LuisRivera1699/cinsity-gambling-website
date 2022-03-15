@@ -48,28 +48,28 @@ const Home = () => {
                     reverse={false}
                     gameImage={baccarat}
                     gameTitle="Baccarat"
-                    gameDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi posuere tincidunt orci, nec iaculis lacus congue sed. Integer euismod mi at efficitur hendrerit. Curabitur semper molestie ligula, ac porttitor erat lobortis vitae."
+                    gameDescription="Originated from Italy in 1400, in this simple game of guessing, there are 2 options. Banker's hand, and Player's hand. The hand that has the highest points out of a possible 9 points will be victorious. Will you win with the House or bet against it?"
                 />
                 <Game
                     link="blackjack"
                     reverse={true}
                     gameImage={blackjack}
                     gameTitle="Blackjack"
-                    gameDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi posuere tincidunt orci, nec iaculis lacus congue sed. Integer euismod mi at efficitur hendrerit. Curabitur semper molestie ligula, ac porttitor erat lobortis vitae."
+                    gameDescription="The stable game in French casinos around 1700 is one of the most popular and liked poker games today. With the goal of getting a higher score than the dealer, each player is dealt 2 cards. You have the option to hit more cards or stay. Who will reach 21 first? You and your friends or the House?"
                 />
                 <Game
                     link="craps"
                     reverse={false}
                     gameImage={craps}
                     gameTitle="Craps"
-                    gameDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi posuere tincidunt orci, nec iaculis lacus congue sed. Integer euismod mi at efficitur hendrerit. Curabitur semper molestie ligula, ac porttitor erat lobortis vitae."
+                    gameDescription="Often overwhelming to new players with sheer amount of numbers on the table, it is believed that Roman soldiers invented the game of craps using knuckle-bones of a pig as dice and their armor shields as a table. Others believe craps originated from an Arabic dice game called Al Dar and that merchants brought the game over to Europe. With an even money bet, 2 dice are rolled. If you hit a 7 or 11, you win. If you hit 2, 3 or 12 you lose. With 0 strategy and skill, where will your luck take you?"
                 />
                 <Game
                     link="poker"
                     reverse={true}
                     gameImage={poker}
                     gameTitle="Poker Texas Holdem"
-                    gameDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi posuere tincidunt orci, nec iaculis lacus congue sed. Integer euismod mi at efficitur hendrerit. Curabitur semper molestie ligula, ac porttitor erat lobortis vitae."
+                    gameDescription="With 100 Million people playing poker online, Texas hold 'em is now one of the most popular forms of poker. With fierce tournaments, players and mind games, Texas hold'em is the combination of luck and skill. Each player gets dealt 2 cards and the dealer Flops 3 card, then a Turn card and a River card. The player with the best hand at the end wins. Will you have the upper hand against the players?"
                 />
             </div>
             <div className="page-section slots-banner">
