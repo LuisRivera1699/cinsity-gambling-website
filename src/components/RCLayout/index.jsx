@@ -19,12 +19,12 @@ const RCLayout = (props) => {
 
     if (content === undefined) {
         return (
-            <MainLayout/>
+            <MainLayout noWristbandNeeded={true}/>
         );
     }
 
     return (
-        <MainLayout>
+        <MainLayout noWristbandNeeded={true}>
             <div className={`rc-banner ${game ? game : res}`}>
                 {console.log(content)}
                 {

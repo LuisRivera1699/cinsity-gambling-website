@@ -13,7 +13,7 @@ const WalletButton = () => {
     }
 
     return (
-        <button onClick={currentAccount ? {} : connectWallet} className="wallet-button">
+        <button onClick={currentAccount ? () => {} : connectWallet} className="wallet-button">
             <span>
                 {
                     currentAccount ?

@@ -1,0 +1,13 @@
+import WBContractABI from "../json/WBContractABI.json";
+import WRLDContractABI from "../json/WRLDContractABI.json";
+
+// AGE VERIFICATION CONTRACT AND ABI
+
+export const AGE_VERIFICATION_CONTRACT_ADDRESS = "0x7448420Fb41b32f7DBCE8e5bc9f7c3BFf2D28569";
+export const AGE_VERIFICATION_CONTRACT_ABI = WBContractABI.abi;
+export const WRISTBAND_WRLD_PRICE = 2;
+
+// WRLD TOKEN CONTRACT AND ABI
+
+export const WRLD_CONTRACT_ADDRESS = "0xaD9B68D57eF0E3e873BE9cFe66f08A90B87Dc5E7";
+export const WRLD_CONTRACT_ABI = WRLDContractABI.abi;
