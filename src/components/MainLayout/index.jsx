@@ -46,8 +46,6 @@ const MainLayout = (props) => {
 
     useEffect(() => {
         if (wristbandRenewDate) {
-            console.log(Date.now());
-            console.log(wristbandRenewDate);
             if(Date.now() > wristbandRenewDate + SIX_MONTHS_TIMESTAMP) {
                 setModalType("renew");
                 setShowMintModal(true);
