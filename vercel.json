@@ -1,7 +1,7 @@
 {
     "headers": [
         {
-            "source": "/static/media/*",
+            "source": "/static/media/(*)",
             "headers": [
                 {
                     "key": "Cache-Control",
