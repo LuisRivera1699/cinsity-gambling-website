@@ -17,7 +17,7 @@ class Baccarat extends React.Component {
 		this.is_fullscreen = false;
 		this.save_money = false; //Set "true" if you want to save current player money using localStorage
 		this.reload_money = true; //Reload money if player lose and current money are 0
-		this.reload_money_amount = 500; //Default amount to reload money
+		this.reload_money_amount = 500;
 		this.chips_move = new window.createjs.Container();
 		this.card_back = new window.createjs.Container();
 		this.chips = new window.createjs.Container();
