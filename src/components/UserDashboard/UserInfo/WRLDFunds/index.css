@@ -1,0 +1,4 @@
+.wrld-funds-container {
+    display: flex;
+    flex-direction: column;
+}

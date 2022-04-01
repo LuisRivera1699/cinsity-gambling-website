@@ -1,0 +1,20 @@
+.nickname-button {
+    font-size: 18px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.set-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nickname-set-text {
+    margin-bottom: 0;
+}
+
+.edit-icon {
+    cursor: pointer;
+}

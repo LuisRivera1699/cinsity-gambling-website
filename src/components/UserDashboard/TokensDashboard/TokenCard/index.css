@@ -1,0 +1,15 @@
+.token-card {
+    border: 2px solid #FFFFFF;
+    border-radius: 15px;
+    padding-bottom: 15px;
+
+    display: inline-block;
+    margin: 10px;
+}
+
+.token-card > p {
+    padding-left: 10px;
+    margin-top: 15px;
+    font-size: 12px;
+    font-weight: 600;
+}

@@ -1,0 +1,41 @@
+.tokens-dashboard {
+    margin-left: 90px;
+    width: 100%;
+}
+
+.tabs-container {
+    display: flex;
+    border-bottom: 1px solid #777881;
+    margin-bottom: 20px;
+}
+
+.tab {
+    margin: 0 15px;
+    margin-bottom: -15px;
+}
+
+.tab > p {
+    font-weight: 600;
+    color: #777881;
+    padding-bottom: 10px;
+}
+
+.tab.selected > p {
+    color: #FFF;
+    border-bottom: 4px solid #C8168F;
+    margin-bottom: -15px;
+}
+
+.tab:hover > p {
+    color: #FFF;
+    border-bottom: 4px solid #C8168F;
+    margin-bottom: 12px;
+}
+
+.tab {
+    cursor: pointer;
+}
+
+.tokens-container {
+    display: flex;
+}

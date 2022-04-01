@@ -4,6 +4,7 @@ import Baccarat from "../pages/Games/Baccarat";
 import Home from "../pages/Home";
 import Resources from "../pages/Resources";
 import Rules from "../pages/Rules";
+import UserDashboard from "../pages/UserDashboard";
 
 const AppRouter = () => {
     return(
@@ -20,6 +21,8 @@ const AppRouter = () => {
                 <Route path="/faqs" element={<FAQs/>}/>
                 {/* GAMES */}
                 <Route path="/games/baccarat" element={<Baccarat/>}/>
+                {/* USER DASHBOARD */}
+                <Route path="/dashboard" element={<UserDashboard/>}/>
             </Routes>
         </BrowserRouter>
     );
