@@ -1,6 +1,7 @@
 import { useState } from "react";
 import BaseModal from "..";
-import wristband from "./assets/wristbandDemo.png";
+import wristband from "./assets/wristband.mp4";
+import "./index.css";
 
 const MintModal = (props) => {
 
@@ -36,7 +37,9 @@ const MintModal = (props) => {
             <h3>{MODAL_SETTINGS[props.type].title}</h3>
             <p className="modal-text">{MODAL_SETTINGS[props.type].content}</p>
             <p className="modal-text">By {MODAL_SETTINGS[props.type].disclaimerVerb} this Wristband, you agree to the <a href="/resources/tyc" target="_blank" rel="noreferrer">Terms of Services</a> of CinSity Casino and confirm you are over the age of 18.</p>
-            <img src={wristband} alt=""/>
+            <video className="wristband-modal" autoPlay={true} loop={true} muted={true} playsInline={true}>
+                <source src={wristband} type="video/mp4"/>
+            </video>
             <button onClick={handleClick}>
                 {
                     isProcessing ?

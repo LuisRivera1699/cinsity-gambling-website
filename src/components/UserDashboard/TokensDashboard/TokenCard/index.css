@@ -13,3 +13,9 @@
     font-size: 12px;
     font-weight: 600;
 }
+
+.video-card {
+    max-width: 189px;
+    height: 189px;
+    border-radius: 15px;
+}

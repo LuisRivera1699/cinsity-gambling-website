@@ -1,7 +1,7 @@
 import "./index.css";
-import wristbandImage from "./assets/wristband.png";
-import wave1Image from "./assets/wave1.png";
-import wave2Image from "./assets/wave2.png";
+import wristbandSource from "./assets/wristband.mp4";
+import wave1Source from "./assets/wave1.png";
+import wave2Source from "./assets/wave2.mp4";
 import TokenCard from "./TokenCard";
 import { useEffect, useState } from "react";
 import { getTokensBalances } from "../../../services/web3/orchestrator";
@@ -26,7 +26,8 @@ const TokensDashboard = (props) => {
     useEffect(() => {
         setWristband(
             <TokenCard
-                image={wristbandImage}
+                isVideo={true}
+                source={wristbandSource}
                 title="Age Verification Wristband"
                 balance={wristbandBalance ? 1 : 0}/>
         );
@@ -34,17 +35,19 @@ const TokensDashboard = (props) => {
         setFoundersPassList(
             [
                 <TokenCard
-                    image={wave1Image}
+                    source={wave1Source}
                     title="Wave 1 Founder’s Pass"
                     balance={wave1Balance}
                 />,
                 <TokenCard
-                    image={wave2Image}
+                    isVideo={true}
+                    source={wave2Source}
                     title="Wave 2 Founder’s Pass"
                     balance={foundersPassBalances[0]}
                 />,
                 <TokenCard
-                    image={wave2Image}
+                    isVideo={true}
+                    source={wave2Source}
                     title="Wave 3 Founder’s Pass"
                     balance={foundersPassBalances[1]}
                 />
