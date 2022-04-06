@@ -1,23 +1,35 @@
 import { useEffect, useState } from "react";
 import "./index.css";
 import editIcon from "./assets/edit.png";
+import { getUserNickname, setUserNickname } from "../../../../services/web3/playermanager";
 
 const NicknameField = (props) => {
     const [status, setStatus] = useState(0);
-    const [nickname, setNickname] = useState(null);
+    const [nickname, setNickname] = useState("");
 
     useEffect(() => {
-        if (nickname) {
+        console.log(nickname === "");
+        if (nickname !== "" && nickname !== null && nickname !== undefined) {
+            console.log("x");
             setStatus(2);
         }
     }, [nickname]);
 
-    const handleKeyDown = (e) => {
+    useEffect(() => {
+        if (props.currentAccount) {
+            getUserNickname(props.currentAccount, setNickname);
+        }
+    }, [props.currentAccount]);
+
+    const handleKeyDown = async (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
             // INTEGRATE WITH NICKNAME SMART CONTRACT
-            if (e.target.value !== "") {
-                setNickname(e.target.value);
+            let nicknameValue = e.target.value;
+            let isSet = nickname !== "" && nickname !== null && nickname !== undefined;
+            await setUserNickname(nicknameValue, isSet ? true : false, setNickname);
+            if (nicknameValue !== "") {
+                setNickname(nicknameValue);
             }
         }
     }

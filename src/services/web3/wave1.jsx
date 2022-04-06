@@ -22,7 +22,7 @@ export const getWave1Balance = async (address, setWave1Balance) => {
 
             await ethereum.request({
                 method: 'wallet_switchEthereumChain',
-                params: [{ chainId: '0x4' }],
+                params: [{ chainId: '0x13881' }],
             });
 
         } else {

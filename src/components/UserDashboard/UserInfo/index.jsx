@@ -18,8 +18,8 @@ const UserInfo = (props) => {
                 <h3 className="info-label">Address</h3>
                 <p className="info-value">{formatWallet()}</p>
             </div>
-            <NicknameField/>
-            <WRLDFunds/>
+            <NicknameField currentAccount={props.currentAccount}/>
+            <WRLDFunds currentAccount={props.currentAccount}/>
         </div>
     );
 }
