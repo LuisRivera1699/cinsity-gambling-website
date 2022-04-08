@@ -51,3 +51,25 @@ export const addFunds = async (amount) => {
         console.error(error);
     }
 }
+
+export const withdrawFunds = async (amount) => {
+    try {
+        const { ethereum } = window;
+
+        if (ethereum) {
+
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = provider.getSigner();
+            const gamePoolContract = new ethers.Contract(GAME_POOL_CONTRACT_ADDRESS, GAME_POOL_CONTRACT_ABI, signer);
+
+            let withdrawFundsTxn = await gamePoolContract.withdraw(amount);
+
+            await withdrawFundsTxn.wait();
+        } else {
+            alert("Man, go and get Metamask!");
+        }
+    } catch (error) {
+        alert("An error has ocurred, refresh the page and try again.");
+        console.error(error);
+    }
+}

@@ -1,11 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { addFunds, getFunds } from "../../../../services/web3/gamepool";
+import { addFunds, getFunds, withdrawFunds } from "../../../../services/web3/gamepool";
 import "./index.css";
 
 const WRLDFunds = (props) => {
-    const [status, setStatus] = useState(0);
+
+    const [isProcessing, setIsProcessing] = useState(false);
+
+    const [addFundsStatus, setAddFundsStatus] = useState(0);
     const [wrldFunds, setWrldFunds] = useState(0);
     const wrldInput = useRef(null);
+
+    const [withdrawStatus, setWithdrawStatus] = useState(0);
+    const withdrawInput = useRef(null);
 
     useEffect(() => {
         if(props.currentAccount) {
@@ -13,16 +19,37 @@ const WRLDFunds = (props) => {
         }
     }, [props.currentAccount]);
 
-    const handleChangeStatus = async () => {
-        if (status === 0) {
-            setStatus(1);
-        } else if (status === 1) {
-            let toCharge = parseInt(wrldInput.current.value);
-            if (toCharge > 0) {
-                // INTEGRATE WITH POOL SMART CONTRACT
-                await addFunds(toCharge);
-                await getFunds(setWrldFunds);
-                setStatus(0);
+    const handleAddFunds = async () => {
+        if (!isProcessing) {
+            if (addFundsStatus === 0) {
+                setAddFundsStatus(1);
+            } else if (addFundsStatus === 1) {
+                setIsProcessing(true);
+                let toCharge = parseInt(wrldInput.current.value);
+                if (toCharge > 0) {
+                    // INTEGRATE WITH POOL SMART CONTRACT
+                    await addFunds(toCharge);
+                    await getFunds(setWrldFunds);
+                    setAddFundsStatus(0);
+                }
+                setIsProcessing(false);
+            }
+        }
+    }
+
+    const handleWithdraw = async () => {
+        if (!isProcessing) {
+            if (withdrawStatus === 0) {
+                setWithdrawStatus(1);
+            } else if (withdrawStatus === 1) {
+                setIsProcessing(true);
+                let toWithdraw = parseInt(withdrawInput.current.value);
+                if (toWithdraw > 0) {
+                    await withdrawFunds(toWithdraw);
+                    await getFunds(setWrldFunds);
+                    setWithdrawStatus(0);
+                }
+                setIsProcessing(false);
             }
         }
     }
@@ -31,9 +58,9 @@ const WRLDFunds = (props) => {
         <div className="wrld-funds-container">
             <h3 className="info-label">CinSity Pool Funds</h3>
             {
-                status === 0 ?
+                addFundsStatus === 0 ?
                 <p className="info-value">{wrldFunds} $WRLD</p> :
-                status === 1 ?
+                addFundsStatus === 1 ?
                 <div className="form">
                     <input
                         ref={wrldInput}
@@ -45,9 +72,26 @@ const WRLDFunds = (props) => {
                 :
                 null
             }
-            <button className="add-funds" onClick={handleChangeStatus}>
-                <span>ADD FUNDS</span>
+            <button className="add-funds" onClick={handleAddFunds}>
+                {
+                    isProcessing ?
+                    <div className="lds-circle"><div></div></div> :
+                    <span>ADD FUNDS</span>
+                }
             </button>
+            {
+                withdrawStatus === 1 ?
+                <div className="withdraw-form">
+                    <input
+                        ref={withdrawInput}
+                        className="field" 
+                        name="withdraw" 
+                        type="number" 
+                        placeholder="How many WRLD you want to withdraw?"/> 
+                </div> :
+                null
+            }            
+            <p className="text-button withdraw-button" onClick={handleWithdraw}>Withdraw funds</p>
         </div>
     );
 }

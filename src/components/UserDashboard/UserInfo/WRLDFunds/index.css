@@ -2,3 +2,17 @@
     display: flex;
     flex-direction: column;
 }
+
+.withdraw-button {
+    margin-left: 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.withdraw-button:hover {
+    text-decoration: underline;
+}
+
+.withdraw-form {
+    margin: 25px 0 0 0;
+}

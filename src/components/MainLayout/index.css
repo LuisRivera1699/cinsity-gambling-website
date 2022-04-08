@@ -52,7 +52,7 @@ h4 {
     font-weight: 600;
 }
 
-.rules-text-button {
+.text-button {
     margin-left: 20px;
     font-size: 18px;
     font-weight: 600;
@@ -95,12 +95,12 @@ p.footer-item > a:hover {
     text-decoration: underline;
 }
 
-p.rules-text-button > a {
+p.text-button > a {
     color: #FFF;
     text-decoration: none;
 }
 
-p.rules-text-button > a:hover {
+p.text-button > a:hover {
     text-decoration: underline;
 }
 

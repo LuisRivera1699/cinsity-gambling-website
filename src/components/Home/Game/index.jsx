@@ -15,7 +15,7 @@ const Game = (props) => {
                     <button>
                         <span>COMMING SOON</span>
                     </button>
-                    <p className="rules-text-button"><a href={`/rules/${props.link}`}>See our rules</a></p>
+                    <p className="text-button"><a href={`/rules/${props.link}`}>See our rules</a></p>
                 </div>
             </div>
         </div>
