@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { addFunds, getFunds } from "../../../../services/web3/gamepool";
 import "./index.css";
 
 const WRLDFunds = (props) => {
@@ -6,14 +7,21 @@ const WRLDFunds = (props) => {
     const [wrldFunds, setWrldFunds] = useState(0);
     const wrldInput = useRef(null);
 
-    const handleChangeStatus = () => {
+    useEffect(() => {
+        if(props.currentAccount) {
+            getFunds(setWrldFunds);
+        }
+    }, [props.currentAccount]);
+
+    const handleChangeStatus = async () => {
         if (status === 0) {
             setStatus(1);
         } else if (status === 1) {
             let toCharge = parseInt(wrldInput.current.value);
             if (toCharge > 0) {
                 // INTEGRATE WITH POOL SMART CONTRACT
-                setWrldFunds(wrldFunds + toCharge);
+                await addFunds(toCharge);
+                await getFunds(setWrldFunds);
                 setStatus(0);
             }
         }

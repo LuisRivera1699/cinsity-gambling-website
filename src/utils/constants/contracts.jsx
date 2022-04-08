@@ -3,6 +3,7 @@ import WRLDContractABI from "../json/WRLDContractABI.json";
 import FPContractABI from "../json/FPContractABI.json";
 import W1ContractABI from "../json/W1ContractABI.json";
 import PlayerManagerContractABI from "../json/PlayerManagerContractABI.json";
+import GamePoolContractABI from "../json/GamePoolContractABI.json";
 
 // AGE VERIFICATION CONTRACT AND ABI
 
@@ -29,3 +30,8 @@ export const W1_CONTRACT_ABI = W1ContractABI.abi;
 
 export const PLAYER_MANAGER_CONTRACT_ADDRESS = "0x78861D0b64C2F29C87068E77a859a55b94Cfc82b";
 export const PLAYER_MANAGER_CONTRACT_ABI = PlayerManagerContractABI.abi;
+
+// CINSITY GAME POOL CONTRACT AND ABI
+
+export const GAME_POOL_CONTRACT_ADDRESS = "0xdB308d69bba24198343B9B600014DD56Bc8EB27B";
+export const GAME_POOL_CONTRACT_ABI = GamePoolContractABI.abi;
