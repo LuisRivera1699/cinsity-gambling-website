@@ -5,6 +5,7 @@
 
 .withdraw-button {
     margin-left: 0;
+    margin-bottom: 0;
     text-align: center;
     cursor: pointer;
 }

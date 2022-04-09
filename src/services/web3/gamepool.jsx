@@ -62,7 +62,7 @@ export const withdrawFunds = async (amount) => {
             const signer = provider.getSigner();
             const gamePoolContract = new ethers.Contract(GAME_POOL_CONTRACT_ADDRESS, GAME_POOL_CONTRACT_ABI, signer);
 
-            let withdrawFundsTxn = await gamePoolContract.withdraw(amount);
+            let withdrawFundsTxn = await gamePoolContract.withdraw(ethers.utils.parseEther(`${amount}`));
 
             await withdrawFundsTxn.wait();
         } else {

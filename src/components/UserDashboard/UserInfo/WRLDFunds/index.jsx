@@ -27,7 +27,6 @@ const WRLDFunds = (props) => {
                 setIsProcessing(true);
                 let toCharge = parseInt(wrldInput.current.value);
                 if (toCharge > 0) {
-                    // INTEGRATE WITH POOL SMART CONTRACT
                     await addFunds(toCharge);
                     await getFunds(setWrldFunds);
                     setAddFundsStatus(0);
@@ -47,8 +46,8 @@ const WRLDFunds = (props) => {
                 if (toWithdraw > 0) {
                     await withdrawFunds(toWithdraw);
                     await getFunds(setWrldFunds);
-                    setWithdrawStatus(0);
                 }
+                setWithdrawStatus(0);
                 setIsProcessing(false);
             }
         }

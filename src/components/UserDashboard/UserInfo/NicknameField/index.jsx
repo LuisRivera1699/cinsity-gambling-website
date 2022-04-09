@@ -24,7 +24,6 @@ const NicknameField = (props) => {
     const handleKeyDown = async (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
-            // INTEGRATE WITH NICKNAME SMART CONTRACT
             let nicknameValue = e.target.value;
             let isSet = nickname !== "" && nickname !== null && nickname !== undefined;
             await setUserNickname(nicknameValue, isSet ? true : false, setNickname);
