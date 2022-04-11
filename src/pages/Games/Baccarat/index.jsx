@@ -349,7 +349,7 @@ class Baccarat extends React.Component {
 		this.center(history);
 
 		let start_x = 1136;
-		let start_y = 170;
+		let start_y = 182;
 		let space_x = 64;
 		let space_y = 33;
 		let count_x = 0;
@@ -1162,7 +1162,7 @@ class Baccarat extends React.Component {
 			posX = 800 + (25 * hitcount);
 		}
 
-		let posY = 200;
+		let posY = 220;
 		this.is_tween = true;
 
 		let card = new window.createjs.Bitmap(this.img("card"+cardType+random));
