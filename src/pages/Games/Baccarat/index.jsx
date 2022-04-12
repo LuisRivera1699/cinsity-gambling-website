@@ -1,6 +1,6 @@
 import React from "react";
 import MainLayout from "../../../components/MainLayout";
-import { font } from "./utils/fonts";
+import { font, font2 } from "./utils/fonts";
 import { aboutContentImage, aboutWindowImage, backgroundImage, betBarImage, btnAboutImage, btnClearImage, btnDealImage, btnFullscreenImage, btnMenuImage, btnPlayImage, btnSoundImage, btnStandImage, cardBackImage, cardClubTenImage, cardClubAImage, cardClubTwoImage, cardClubThreeImage, cardClubFourImage, cardClubFiveImage, cardClubSixImage, cardClubSevenImage, cardClubEightImage, cardClubNineImage, cardClubJImage, cardClubKImage, cardClubQImage, cardDiamondTenImage, cardDiamondAImage, cardDiamondTwoImage, cardDiamondThreeImage, cardDiamondFourImage, cardDiamondFiveImage, cardDiamondSixImage, cardDiamondSevenImage, cardDiamondEightImage, cardDiamondNineImage, cardDiamondJImage, cardDiamondKImage, cardDiamondQImage, cardHeartTenImage, cardHeartAImage, cardHeartTwoImage, cardHeartThreeImage, cardHeartFourImage, cardHeartFiveImage, cardHeartSixImage, cardHeartSevenImage, cardHeartEightImage, cardHeartNineImage, cardHeartJImage, cardHeartKImage, cardHeartQImage, cardsImage, cardSpadeTenImage, cardSpadeAImage, cardSpadeTwoImage, cardSpadeThreeImage, cardSpadeFourImage, cardSpadeFiveImage, cardSpadeSixImage, cardSpadeSevenImage, cardSpadeEightImage, cardSpadeNineImage, cardSpadeJImage, cardSpadeKImage, cardSpadeQImage, cardValueImage, chipsImage, chipsStackImage, gameTitleImage, highlightImage, historyImage, loseImage, moneyBarImage, selectedBankerImage, selectedPlayerImage, selectedTieImage, tieImage, totalBetBarImage, txtBankerImage, txtPlayerImage, winImage } from "./utils/images";
 import { cardPlaceMfa, cardPlaceOgg, cardShoveMfa, cardShoveOgg, chipsCollideMfa, chipsCollideOgg, chipsHandleMfa, chipsHandleOgg, clickMfa, clickOgg, tieMfa, tieOgg, youLoseMfa, youLoseOgg, youWinMfa, youWinOgg } from "./utils/sounds";
 import "./index.css";
@@ -65,7 +65,7 @@ class Baccarat extends React.Component {
 		border.setTransform(260, 446);
 
 		let title = new window.createjs.Bitmap(gameTitleImage);
-		title.setTransform(600, 260);
+		title.setTransform(630, 290);
 		title.regX = 732/2;
 		title.regY = 312/2;
 
@@ -210,6 +210,22 @@ class Baccarat extends React.Component {
 			"images": [font],
 			"frames": {"width":27,"height":44,"count":10,"regX":27/2,"regY":44/2}
 		});
+		this.font2 = new window.createjs.SpriteSheet({
+			"animations": {
+				"0": {"frames": [0]},
+				"1": {"frames": [1]},
+				"2": {"frames": [2]},
+				"3": {"frames": [3]},
+				"4": {"frames": [4]},
+				"5": {"frames": [5]},
+				"6": {"frames": [6]},
+				"7": {"frames": [7]},
+				"8": {"frames": [8]},
+				"9": {"frames": [9]},
+			},
+			"images": [font2],
+			"frames": {"width":27,"height":44,"count":10,"regX":27/2,"regY":44/2}
+		});
 		this.toMenu();
 	}
 
@@ -234,7 +250,7 @@ class Baccarat extends React.Component {
 		let background = new window.createjs.Bitmap(this.img("bgMenu"));
 
 		let title = new window.createjs.Bitmap(this.img("game_title"));
-		title.setTransform(600, 260);
+		title.setTransform(630, 290);
 		title.regX = title.getBounds().width/2;
 		title.regY = title.getBounds().height/2;
 
@@ -336,11 +352,11 @@ class Baccarat extends React.Component {
 
 		for(let i=0; i<3; i++) {
 			let child = this.bet_bar.getChildAt(i);
-			let s = new window.createjs.BitmapText("", this.font);
+			let s = new window.createjs.BitmapText("", this.font2);
 			s.textAlign = "center";
 			s.setTransform(child.x, child.y);
 			s.name = child.name;
-			s.scaleX = s.scaleY = 0.5;
+			s.scaleX = s.scaleY = 0.7;
 			this.bet_txts.addChild(s);
 		}
 
@@ -356,11 +372,11 @@ class Baccarat extends React.Component {
 		let count_y = 0;
 
 		for(let i=0; i<10; i++) {
-			let s = new window.createjs.BitmapText("", this.font);
+			let s = new window.createjs.BitmapText("", this.font2);
 			s.textAlign = "center"
 			s.setTransform(start_x + (space_x * count_x), start_y + (space_y * count_y));
 			s.id = i;
-			s.scaleX = s.scaleY = 0.4;
+			s.scaleX = s.scaleY = 0.6;
 			this.txt_history.addChild(s);
 
 			count_x++;
@@ -392,7 +408,7 @@ class Baccarat extends React.Component {
 		this.txt_bet = new window.createjs.BitmapText(this.bet.toString(), this.font);
 		this.txt_bet.textAlign = "center";
 		this.txt_bet.setTransform(1040, 478);
-		this.txt_bet.scaleX = this.txt_bet.scaleY = 0.7;
+		this.txt_bet.scaleX = this.txt_bet.scaleY = 0.85;
 
 		this.b_clear = new window.createjs.Bitmap(this.img("btn_clear"));
 		this.b_clear.setTransform(1160, 478);
@@ -409,14 +425,14 @@ class Baccarat extends React.Component {
 			this.chips_move.removeAllChildren();
 		}.bind(this));
 
-		this.txt_player = new window.createjs.BitmapText("", this.font);
+		this.txt_player = new window.createjs.BitmapText("", this.font2);
 		this.txt_player.setTransform(this.value_bar_1.x, this.value_bar_1.y);
-		this.txt_player.scaleX = this.txt_player.scaleY = 0.6;
+		this.txt_player.scaleX = this.txt_player.scaleY = 0.7;
 		this.txt_player.textAlign = "center";
 
-		this.txt_dealer = new window.createjs.BitmapText("", this.font);
+		this.txt_dealer = new window.createjs.BitmapText("", this.font2);
 		this.txt_dealer.setTransform(this.value_bar_2.x, this.value_bar_2.y);
-		this.txt_dealer.scaleX = this.txt_dealer.scaleY = 0.6;
+		this.txt_dealer.scaleX = this.txt_dealer.scaleY = 0.7;
 		this.txt_dealer.textAlign = "center";
 
 		this.stage.addChild(background, t_player, t_banker, history, this.txt_history, this.highlights, this.selected, this.cards, this.card_back, this.card_pack, this.chips_move, this.chips);
@@ -557,9 +573,9 @@ class Baccarat extends React.Component {
 			btnSound.alpha = 0.4;
 		}
 		
-		this.txt_cash = new window.createjs.BitmapText(this.cur_cash.toString(), this.font);
+		this.txt_cash = new window.createjs.BitmapText(this.cur_cash.toString(), this.font2);
 		this.txt_cash.setTransform(140, 54);
-		this.txt_cash.scaleX = this.txt_cash.scaleY = 0.7;
+		this.txt_cash.scaleX = this.txt_cash.scaleY = 0.9;
 		this.stage.addChild(this.txt_cash);
 	}
 

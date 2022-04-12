@@ -1,7 +1,7 @@
 import font from "../assets/font/font.png";
-import spriteFont from "../assets/font/spritefont.png";
+import font2 from "../assets/font/font_2.png";
 
 export {
     font,
-    spriteFont
+    font2
 }
