@@ -15,7 +15,7 @@ const WRLDFunds = (props) => {
 
     useEffect(() => {
         if(props.currentAccount) {
-            getFunds(setWrldFunds);
+            getFunds(props.currentAccount, setWrldFunds);
         }
     }, [props.currentAccount]);
 
@@ -28,7 +28,7 @@ const WRLDFunds = (props) => {
                 let toCharge = parseInt(wrldInput.current.value);
                 if (toCharge > 0) {
                     await addFunds(toCharge);
-                    await getFunds(setWrldFunds);
+                    await getFunds(props.currentAccount, setWrldFunds);
                     setAddFundsStatus(0);
                 }
                 setIsProcessing(false);
@@ -45,7 +45,7 @@ const WRLDFunds = (props) => {
                 let toWithdraw = parseInt(withdrawInput.current.value);
                 if (toWithdraw > 0) {
                     await withdrawFunds(toWithdraw);
-                    await getFunds(setWrldFunds);
+                    await getFunds(props.currentAccount, setWrldFunds);
                 }
                 setWithdrawStatus(0);
                 setIsProcessing(false);

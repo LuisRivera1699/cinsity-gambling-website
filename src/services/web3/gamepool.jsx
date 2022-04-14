@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { GAME_POOL_CONTRACT_ABI, GAME_POOL_CONTRACT_ADDRESS, WRLD_CONTRACT_ABI, WRLD_CONTRACT_ADDRESS } from "../../utils/constants/contracts";
 
-export const getFunds = async (setFunds) => {
+export const getFunds = async (address, setFunds) => {
     try {
         const { ethereum } = window;
 
@@ -11,7 +11,7 @@ export const getFunds = async (setFunds) => {
             const signer = provider.getSigner();
             const gamePoolContract = new ethers.Contract(GAME_POOL_CONTRACT_ADDRESS, GAME_POOL_CONTRACT_ABI, signer);
 
-            let funds = await gamePoolContract.getMyDeposit();
+            let funds = await gamePoolContract.getMyDepositAmount(address);
             let converted = ethers.utils.formatEther(funds.toString());
             setFunds(converted);
 
