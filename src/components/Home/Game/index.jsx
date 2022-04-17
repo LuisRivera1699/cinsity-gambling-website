@@ -3,12 +3,12 @@ import "./index.css";
 
 const Game = (props) => {
     return(
-        <div className={`game-container ${props.reverse ? "row-reverse" : ""}`}>
+        <div className={`game-container ${props.reverse ? "card-reverse" : ""}`}>
             <div className="card-container">
                 <img data-aos={props.reverse ? "fade-left" : "fade-right"} className="layer-1" src={gradientBg} alt=""/>
                 <img data-aos="flip-left" className="layer-2" src={props.gameImage} alt=""/>
             </div>
-            <div>
+            <div className="game-info">
                 <h3>{props.gameTitle}</h3>
                 <p>{props.gameDescription}</p>
                 <div className="game-buttons">

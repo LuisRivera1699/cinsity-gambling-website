@@ -3,12 +3,13 @@ import MainLayout from "../../../components/MainLayout";
 import { font, font2 } from "./utils/fonts";
 import { aboutContentImage, aboutWindowImage, backgroundImage, betBarImage, btnAboutImage, btnClearImage, btnDealImage, btnFullscreenImage, btnMenuImage, btnPlayImage, btnSoundImage, btnStandImage, cardBackImage, cardClubTenImage, cardClubAImage, cardClubTwoImage, cardClubThreeImage, cardClubFourImage, cardClubFiveImage, cardClubSixImage, cardClubSevenImage, cardClubEightImage, cardClubNineImage, cardClubJImage, cardClubKImage, cardClubQImage, cardDiamondTenImage, cardDiamondAImage, cardDiamondTwoImage, cardDiamondThreeImage, cardDiamondFourImage, cardDiamondFiveImage, cardDiamondSixImage, cardDiamondSevenImage, cardDiamondEightImage, cardDiamondNineImage, cardDiamondJImage, cardDiamondKImage, cardDiamondQImage, cardHeartTenImage, cardHeartAImage, cardHeartTwoImage, cardHeartThreeImage, cardHeartFourImage, cardHeartFiveImage, cardHeartSixImage, cardHeartSevenImage, cardHeartEightImage, cardHeartNineImage, cardHeartJImage, cardHeartKImage, cardHeartQImage, cardsImage, cardSpadeTenImage, cardSpadeAImage, cardSpadeTwoImage, cardSpadeThreeImage, cardSpadeFourImage, cardSpadeFiveImage, cardSpadeSixImage, cardSpadeSevenImage, cardSpadeEightImage, cardSpadeNineImage, cardSpadeJImage, cardSpadeKImage, cardSpadeQImage, cardValueImage, chipsImage, chipsStackImage, gameTitleImage, highlightImage, historyImage, loseImage, moneyBarImage, selectedBankerImage, selectedPlayerImage, selectedTieImage, tieImage, totalBetBarImage, txtBankerImage, txtPlayerImage, winImage } from "./utils/images";
 import { cardPlaceMfa, cardPlaceOgg, cardShoveMfa, cardShoveOgg, chipsCollideMfa, chipsCollideOgg, chipsHandleMfa, chipsHandleOgg, clickMfa, clickOgg, tieMfa, tieOgg, youLoseMfa, youLoseOgg, youWinMfa, youWinOgg } from "./utils/sounds";
+import { useAuthContext } from "../../../context/AuthContext";
 import "./index.css";
 
-class Baccarat extends React.Component {
+class BaccaratCanvas extends React.Component {
 
 	constructor() {
-		super();
+		super();		
 		this.is_ready = true;
 		this.chips_ready = true;
 		this.sound_enable = true;
@@ -48,6 +49,10 @@ class Baccarat extends React.Component {
 		this.load();
 		window.addEventListener("resize", this.resizeGame);
 		this.resizeGame();
+	}
+
+	componentDidUpdate () {
+		console.log(this.props.currentAccount);
 	}
 
 	load () {
@@ -1308,15 +1313,26 @@ class Baccarat extends React.Component {
 
 	render () {
 		return(
-			<MainLayout>
-				<div id="canvas-container" className="canvas-container">
-					<canvas id="canvas" width="1280" height="720"></canvas>
-				</div>
-			</MainLayout>
+			<div id="canvas-container" className="canvas-container">
+				<canvas id="canvas" width="1280" height="720"></canvas>
+			</div>
 		);
 	}
 
 	
+}
+
+const Baccarat = (props) => {
+
+	const { currentAccount } = useAuthContext();
+
+	return (
+		<MainLayout>
+			<BaccaratCanvas
+				currentAccount={currentAccount}
+			/>
+		</MainLayout>
+	);
 }
 
 export default Baccarat;

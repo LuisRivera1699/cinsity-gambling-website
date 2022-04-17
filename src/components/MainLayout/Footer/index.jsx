@@ -31,7 +31,7 @@ const Footer = () => {
     return(
         <section>
             <footer>
-                <div>
+                <div className="footer-logo">
                     <img src={logo} alt=""/>
                     <p className="copyright">Copyright © CinCity DAO. An NFTWorlds built for the coolest gamblers and betters.</p>
                 </div>

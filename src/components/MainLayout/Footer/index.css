@@ -15,14 +15,14 @@ footer div {
 }
 
 .copyright  {
-    font-size: 14px;
+    font-size: 0.875em;
     font-weight: 400;
 }
 
 .footer-item {
     margin: 15px 0;
 
-    font-size: 16px;
+    font-size: 1em;
     font-weight: 400;
 }
 
@@ -35,10 +35,29 @@ h5 {
     margin-bottom: 20px;
 
     color: #FFF;
-    font-size: 16px;
+    font-size: 1em;
     font-weight: 600;
 }
 
 .discord {
     margin-left: 20px;
+}
+
+/* RESPONSIVE */
+
+@media only screen and (max-width: 1300px) {
+    footer {
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    footer div {
+        flex-basis: unset;
+        margin-bottom: 25px;
+    }
+
+    .footer-logo {
+        order: 2;
+    }
 }
