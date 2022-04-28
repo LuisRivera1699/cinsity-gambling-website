@@ -1,6 +1,7 @@
 import NicknameField from "./NicknameField";
 import WRLDFunds from "./WRLDFunds";
 import "./index.css";
+import Panel from "..";
 
 const UserInfo = (props) => {
 
@@ -13,14 +14,14 @@ const UserInfo = (props) => {
     }
 
     return(
-        <div className="info-container">
+        <Panel>
             <div>
                 <h3 className="info-label">Address</h3>
                 <p className="info-value">{formatWallet()}</p>
             </div>
             <NicknameField currentAccount={props.currentAccount}/>
             <WRLDFunds currentAccount={props.currentAccount}/>
-        </div>
+        </Panel>
     );
 }
 

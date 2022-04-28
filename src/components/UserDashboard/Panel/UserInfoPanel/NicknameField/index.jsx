@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./index.css";
 import editIcon from "./assets/edit.png";
-import { getUserNickname, setUserNickname } from "../../../../services/web3/playermanager";
+import { getUserNickname, setUserNickname } from "../../../../../services/web3/playermanager";
 
 const NicknameField = (props) => {
     const [status, setStatus] = useState(0);

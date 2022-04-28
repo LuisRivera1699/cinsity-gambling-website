@@ -1,0 +1,21 @@
+.panel-info, .panel-option {
+    background: #191D40;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0px 0px 20px 0.5px rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-info {
+    padding: 40px 25px;
+}
+
+.panel-option {
+    padding: 20px 25px;
+    margin-top: 20px;
+
+    cursor: pointer;
+}
+

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { addFunds, getFunds, withdrawFunds } from "../../../../services/web3/gamepool";
+import { addFunds, getFunds, withdrawFunds } from "../../../../../services/web3/gamepool";
 import "./index.css";
 
 const WRLDFunds = (props) => {

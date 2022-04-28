@@ -1,8 +1,10 @@
 import MainLayout from "../../components/MainLayout";
 import TokensDashboard from "../../components/UserDashboard/TokensDashboard";
-import UserInfo from "../../components/UserDashboard/UserInfo";
+import UserInfoPanel from "../../components/UserDashboard/Panel/UserInfoPanel";
 import { useAuthContext } from "../../context/AuthContext";
 import "./index.css";
+import SettingsPanel from "../../components/UserDashboard/Panel/SettingsPanel";
+import SettingsModal from "../../components/Modals/SettingsModal";
 
 const UserDashboard = (props) => {
 
@@ -11,9 +13,13 @@ const UserDashboard = (props) => {
     return (
         <MainLayout>
             <div className="page-section dashboard">
-                <UserInfo currentAccount={currentAccount}/>
+                <div>
+                    <UserInfoPanel currentAccount={currentAccount}/>
+                    <SettingsPanel />
+                </div>
                 <TokensDashboard currentAccount={currentAccount}/>
             </div>
+            <SettingsModal visible={true}/>
         </MainLayout>
     );
 }

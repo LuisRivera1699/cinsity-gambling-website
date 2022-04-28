@@ -1,6 +1,6 @@
 import Game from "../../components/Home/Game";
 import MainLayout from "../../components/MainLayout";
-import arrowDown from "./assets/arrow-down.svg";
+import arrowDown from "../../assets/arrow-down.svg";
 import baccarat from "./assets/baccarat.png";
 import blackjack from "./assets/blackjack.png";
 import craps from "./assets/craps.png";

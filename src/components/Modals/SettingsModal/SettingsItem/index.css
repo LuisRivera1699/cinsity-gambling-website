@@ -1,0 +1,40 @@
+.item-container {
+    padding: 10px 0;
+    border-bottom: 2px solid #FFF;
+}
+
+.item-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 500px;
+    
+    cursor: pointer;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+.item-title h3 {
+    margin: 0
+}
+
+.item-content {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.item-content p {
+    margin: 0;
+}
+
+.item-content input {
+    margin: 25px 0;
+}
+
+.item-content button {
+    margin-bottom: 15px;
+}
