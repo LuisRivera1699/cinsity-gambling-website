@@ -1,12 +1,16 @@
+import FirstButton from "../../components/Buttons/FirstButton";
 import RCLayout from "../../components/RCLayout";
 import "./index.css";
 
 const Rules = () => {
     return (
         <RCLayout>
-            <button className="rules-button">
-                <span>COMMING SOON</span>
-            </button>
+            <FirstButton
+                isAsync={false}
+                className="rules-button"
+                text="COMMING SOON"
+                method={() => {}}
+            />
         </RCLayout>
     );
 }

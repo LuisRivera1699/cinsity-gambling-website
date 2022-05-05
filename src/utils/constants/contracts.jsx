@@ -5,6 +5,7 @@ import W1ContractABI from "../json/W1ContractABI.json";
 import PlayerManagerContractABI from "../json/PlayerManagerContractABI.json";
 import GamePoolContractABI from "../json/GamePoolContractABI.json";
 import BaccaratContractABI from "../json/BaccaratContractABI.json";
+import Web32FAContractABI from "../json/Web32FAContractABI.json";
 
 // AGE VERIFICATION CONTRACT AND ABI
 
@@ -40,3 +41,8 @@ export const GAME_POOL_CONTRACT_ABI = GamePoolContractABI.abi;
 // BACCARAT CONTRACT AND ABI
 export const BACCARAT_CONTRACT_ADDRESS = "0x974d787ceF13D0859f232593eC8BFA8e33a605E9";
 export const BACCARAT_CONTRACT_ABI = BaccaratContractABI.abi;
+
+// WEB3 2FA CONTRACT AND ABI
+
+export const WEB32FA_CONTRACT_ADDRESS = "0xb41CD32190fc2548995652D55229D2C7F092a8b2";
+export const WEB32FA_CONTRACT_ABI = Web32FAContractABI.abi;

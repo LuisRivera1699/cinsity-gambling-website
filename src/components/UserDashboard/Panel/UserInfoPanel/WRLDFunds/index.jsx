@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { addFunds, getFunds, withdrawFunds } from "../../../../../services/web3/gamepool";
+import FirstButton from "../../../../Buttons/FirstButton";
+import TextButton from "../../../../Buttons/TextButton";
+import InputField from "../../../../InputField";
 import "./index.css";
 
 const WRLDFunds = (props) => {
-
-    const [isProcessing, setIsProcessing] = useState(false);
 
     const [addFundsStatus, setAddFundsStatus] = useState(0);
     const [wrldFunds, setWrldFunds] = useState(0);
@@ -20,36 +21,28 @@ const WRLDFunds = (props) => {
     }, [props.currentAccount]);
 
     const handleAddFunds = async () => {
-        if (!isProcessing) {
-            if (addFundsStatus === 0) {
-                setAddFundsStatus(1);
-            } else if (addFundsStatus === 1) {
-                setIsProcessing(true);
-                let toCharge = parseInt(wrldInput.current.value);
-                if (toCharge > 0) {
-                    await addFunds(toCharge);
-                    await getFunds(props.currentAccount, setWrldFunds);
-                    setAddFundsStatus(0);
-                }
-                setIsProcessing(false);
+        if (addFundsStatus === 0) {
+            setAddFundsStatus(1);
+        } else if (addFundsStatus === 1) {
+            let toCharge = parseInt(wrldInput.current.value);
+            if (toCharge > 0) {
+                await addFunds(toCharge);
+                await getFunds(props.currentAccount, setWrldFunds);
+                setAddFundsStatus(0);
             }
         }
     }
 
     const handleWithdraw = async () => {
-        if (!isProcessing) {
-            if (withdrawStatus === 0) {
-                setWithdrawStatus(1);
-            } else if (withdrawStatus === 1) {
-                setIsProcessing(true);
-                let toWithdraw = parseInt(withdrawInput.current.value);
-                if (toWithdraw > 0) {
-                    await withdrawFunds(toWithdraw);
-                    await getFunds(props.currentAccount, setWrldFunds);
-                }
-                setWithdrawStatus(0);
-                setIsProcessing(false);
+        if (withdrawStatus === 0) {
+            setWithdrawStatus(1);
+        } else if (withdrawStatus === 1) {
+            let toWithdraw = parseInt(withdrawInput.current.value);
+            if (toWithdraw > 0) {
+                await withdrawFunds(toWithdraw);
+                await getFunds(props.currentAccount, setWrldFunds);
             }
+            setWithdrawStatus(0);
         }
     }
 
@@ -61,9 +54,8 @@ const WRLDFunds = (props) => {
                 <p className="info-value">{wrldFunds} $WRLD</p> :
                 addFundsStatus === 1 ?
                 <div className="form">
-                    <input
-                        ref={wrldInput}
-                        className="field" 
+                    <InputField
+                        refHook={wrldInput} 
                         name="wlrdFunds" 
                         type="number" 
                         placeholder="How many WRLD you want to charge?"/> 
@@ -71,26 +63,28 @@ const WRLDFunds = (props) => {
                 :
                 null
             }
-            <button className="add-funds" onClick={handleAddFunds}>
-                {
-                    isProcessing ?
-                    <div className="lds-circle"><div></div></div> :
-                    <span>ADD FUNDS</span>
-                }
-            </button>
+            <FirstButton
+                isAsync={true}
+                className="add-funds"
+                text="ADD FUNDS"
+                method={handleAddFunds}
+            />
             {
                 withdrawStatus === 1 ?
                 <div className="withdraw-form">
-                    <input
-                        ref={withdrawInput}
-                        className="field" 
+                    <InputField
+                        refHook={withdrawInput}
                         name="withdraw" 
                         type="number" 
                         placeholder="How many WRLD you want to withdraw?"/> 
                 </div> :
                 null
-            }            
-            <p className="text-button withdraw-button" onClick={handleWithdraw}>Withdraw funds</p>
+            }
+            <TextButton
+                className="withdraw-button"
+                method={handleWithdraw}
+                text="Withdraw funds"
+            />            
         </div>
     );
 }

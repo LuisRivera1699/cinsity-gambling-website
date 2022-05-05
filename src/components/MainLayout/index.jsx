@@ -10,7 +10,7 @@ import "./index.css";
 
 const MainLayout = (props) => {
 
-    const { currentAccount } = useAuthContext();
+    const { currentAccount, connectWallet } = useAuthContext();
     const [hasWristband, setHasWristband] = useState();
     const [mintingSuccessfull, setMintingSuccessfull] = useState();
     const [wristbandRenewDate, setWristbandRenewDate] = useState();
@@ -71,7 +71,7 @@ const MainLayout = (props) => {
 
     return(
         <div>
-            <Header/>
+            <Header currentAccount={currentAccount} connectWallet={connectWallet}/>
             {props.children}
             <Footer/>
             <MintModal type={modalType} visible={showMintModal} mintMethod={mintAgeVerificationWristband} renewMethod={updateAgeVerificationWristbandRenewDate}/>

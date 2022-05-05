@@ -5,12 +5,15 @@ import { useAuthContext } from "../../context/AuthContext";
 import "./index.css";
 import SettingsPanel from "../../components/UserDashboard/Panel/SettingsPanel";
 import SettingsModal from "../../components/Modals/SettingsModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { checkIfHasSignature, signMessage, validateSignature } from "../../services/web3/web32fa";
+import Web32FAModal from "../../components/Modals/Web32FAModal";
 
 const UserDashboard = (props) => {
 
     const { currentAccount } = useAuthContext();
     const [showSettingsModal, setShowSettingsModal] = useState(false);
+    const [hasWeb32FA, setHasWeb32FA] = useState(false);
 
     const handleHideSettingsModal = () => {
         setShowSettingsModal(false);
@@ -18,6 +21,17 @@ const UserDashboard = (props) => {
 
     const handleOpenSettingsModal = () => {
         setShowSettingsModal(true);
+    }
+
+    useEffect(() => {
+        if (currentAccount) {
+            checkIfHasSignature(setHasWeb32FA);
+        }
+    }, [currentAccount]);
+
+    const signPwdAndValidateWeb32FASignature = async (pwd) => {
+        const signedPwd = await signMessage(pwd);
+        await validateSignature(currentAccount, signedPwd);
     }
 
     return (
@@ -29,7 +43,15 @@ const UserDashboard = (props) => {
                 </div>
                 <TokensDashboard currentAccount={currentAccount}/>
             </div>
-            <SettingsModal visible={showSettingsModal} hide={handleHideSettingsModal}/>
+            <SettingsModal visible={showSettingsModal} 
+                hide={handleHideSettingsModal} 
+                currentAccount={currentAccount} 
+                hasWeb32FA={hasWeb32FA} 
+                setHasWeb32FA={setHasWeb32FA}/>
+            <Web32FAModal visible={false}
+                currentAccount={currentAccount}
+                method={signPwdAndValidateWeb32FASignature}
+            />
         </MainLayout>
     );
 }

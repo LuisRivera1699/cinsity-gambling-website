@@ -6,15 +6,11 @@
     padding-right: 15px;
 }
 
-.profile-button > a {
+.profile-button > .text-button {
     color: #fff;
     font-size: 1em;
     font-weight: 700;
     cursor: pointer;
 
     text-decoration: none;
-}
-
-.profile-button > a:hover {
-    text-decoration: underline;
 }

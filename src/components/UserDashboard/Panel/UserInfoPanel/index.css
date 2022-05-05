@@ -11,23 +11,6 @@
     align-self: center;
 }
 
-.field {
-    width: 100%;
-
-    border: none;
-    border-bottom: 2px solid #777881;
-
-    background: none;
-    font-size: 1em;
-    color: #FFF;
-
-    outline: none;
-}
-
-.field::placeholder {
-    color: #777881;
-}
-
 .form {
     margin: 16px 0 25px 0;
     width: 100%;

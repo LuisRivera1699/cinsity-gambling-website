@@ -1,23 +1,19 @@
 import logo from "./assets/logo.svg";
 import WalletButton from "./WalletButton";
 import "./index.css";
-import { useAuthContext } from "../../../context/AuthContext";
 import ProfileButton from "./ProfileButton";
 
-const Header = () => {
-
-    const { currentAccount, connectWallet } = useAuthContext();
-
+const Header = (props) => {
     return(
         <section>
             <header>
                 <a href="/"><img src={logo} alt=""/></a>
                 <ProfileButton
-                    currentAccount={currentAccount}
+                    currentAccount={props.currentAccount}
                 />
                 <WalletButton
-                    currentAccount={currentAccount}
-                    connectWallet={connectWallet}
+                    currentAccount={props.currentAccount}
+                    connectWallet={props.connectWallet}
                 />
             </header>
         </section>

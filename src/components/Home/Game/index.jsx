@@ -1,3 +1,5 @@
+import FirstButton from "../../Buttons/FirstButton";
+import TextButton from "../../Buttons/TextButton";
 import gradientBg from "./assets/gradient-bg.png";
 import "./index.css";
 
@@ -12,10 +14,12 @@ const Game = (props) => {
                 <h3>{props.gameTitle}</h3>
                 <p>{props.gameDescription}</p>
                 <div className="game-buttons">
-                    <button>
-                        <span>COMMING SOON</span>
-                    </button>
-                    <p className="text-button"><a href={`/rules/${props.link}`}>See our rules</a></p>
+                    <FirstButton
+                        isAsync={false}
+                        text="COMMING SOON"
+                        method={() => {}}
+                    />
+                    <TextButton link={`rules/${props.link}`} text="See our rules"/>
                 </div>
             </div>
         </div>

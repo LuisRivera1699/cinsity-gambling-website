@@ -1,6 +1,7 @@
 .item-container {
     padding: 10px 0;
     border-bottom: 2px solid #FFF;
+    margin-bottom: 10px;
 }
 
 .item-title {
@@ -17,7 +18,8 @@
 }
 
 .item-title h3 {
-    margin: 0
+    margin: 0;
+    font-size: 1.3em;
 }
 
 .item-content {
@@ -28,11 +30,7 @@
 }
 
 .item-content p {
-    margin: 0;
-}
-
-.item-content input {
-    margin: 25px 0;
+    margin: 0 0 25px 0;
 }
 
 .item-content button {

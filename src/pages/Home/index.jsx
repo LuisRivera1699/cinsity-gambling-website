@@ -9,6 +9,7 @@ import "./index.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import FirstButton from "../../components/Buttons/FirstButton";
 
 const Home = () => {
 
@@ -31,9 +32,12 @@ const Home = () => {
                         <span className="text-pink">Gambling Website</span>
                     </h1>
                     <div className="banner-button-container">
-                        <button className="banner-button">
-                            <span>START PLAYING</span>
-                        </button>
+                        <FirstButton
+                            isAsync={false}
+                            className="banner-button"
+                            text="START PLAYING"
+                            method={() => {}}
+                        />
                         <img className="bounce" src={arrowDown} alt="" />
                     </div>
                 </div>

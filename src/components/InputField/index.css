@@ -1,0 +1,16 @@
+.field {
+    width: 100%;
+
+    border: none;
+    border-bottom: 2px solid #777881;
+
+    background: none;
+    font-size: 1em;
+    color: #FFF;
+
+    outline: none;
+}
+
+.field::placeholder {
+    color: #777881;
+}
