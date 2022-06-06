@@ -5,6 +5,7 @@ import Home from "../pages/Home";
 import Resources from "../pages/Resources";
 import Rules from "../pages/Rules";
 import UserDashboard from "../pages/UserDashboard";
+import PrivateRoute from "./PrivateRoute";
 
 const AppRouter = () => {
     return(
@@ -20,9 +21,9 @@ const AppRouter = () => {
                 {/* FAQS */}
                 <Route path="/faqs" element={<FAQs/>}/>
                 {/* GAMES */}
-                <Route path="/games/baccarat" element={<Baccarat/>}/>
+                <Route path="/games/baccarat" element={<PrivateRoute><Baccarat/></PrivateRoute>}/>
                 {/* USER DASHBOARD */}
-                <Route path="/dashboard" element={<UserDashboard/>}/>
+                <Route path="/dashboard" element={<PrivateRoute><UserDashboard/></PrivateRoute>}/>
             </Routes>
         </BrowserRouter>
     );

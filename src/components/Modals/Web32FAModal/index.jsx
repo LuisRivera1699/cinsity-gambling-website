@@ -6,11 +6,12 @@ import InputField from "../../InputField";
 const Web32FAModal = (props) => {
     const inputPwd = useRef(null);
 
-    const handleButtonClick = () => {
+    const handleButtonClick = async () => {
         const pwd = inputPwd.current.value
         if (pwd.length > 0) {
-            props.method(pwd);
+            await props.method(pwd);
         }
+        props.hide();
     }
 
     return(
@@ -26,6 +27,7 @@ const Web32FAModal = (props) => {
             <FirstButton
                 text="VALIDATE"
                 method={handleButtonClick}
+                isAsync={true}
             />
         </BaseModal>
     );

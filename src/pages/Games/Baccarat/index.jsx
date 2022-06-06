@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import MainLayout from "../../../components/MainLayout";
 import { font, font2 } from "./utils/fonts";
 import { aboutContentImage, aboutWindowImage, backgroundImage, betBarImage, btnAboutImage, btnClearImage, btnDealImage, btnFullscreenImage, btnMenuImage, btnPlayImage, btnSoundImage, btnStandImage, cardBackImage, cardClubTenImage, cardClubAImage, cardClubTwoImage, cardClubThreeImage, cardClubFourImage, cardClubFiveImage, cardClubSixImage, cardClubSevenImage, cardClubEightImage, cardClubNineImage, cardClubJImage, cardClubKImage, cardClubQImage, cardDiamondTenImage, cardDiamondAImage, cardDiamondTwoImage, cardDiamondThreeImage, cardDiamondFourImage, cardDiamondFiveImage, cardDiamondSixImage, cardDiamondSevenImage, cardDiamondEightImage, cardDiamondNineImage, cardDiamondJImage, cardDiamondKImage, cardDiamondQImage, cardHeartTenImage, cardHeartAImage, cardHeartTwoImage, cardHeartThreeImage, cardHeartFourImage, cardHeartFiveImage, cardHeartSixImage, cardHeartSevenImage, cardHeartEightImage, cardHeartNineImage, cardHeartJImage, cardHeartKImage, cardHeartQImage, cardsImage, cardSpadeTenImage, cardSpadeAImage, cardSpadeTwoImage, cardSpadeThreeImage, cardSpadeFourImage, cardSpadeFiveImage, cardSpadeSixImage, cardSpadeSevenImage, cardSpadeEightImage, cardSpadeNineImage, cardSpadeJImage, cardSpadeKImage, cardSpadeQImage, cardValueImage, chipsImage, chipsStackImage, gameTitleImage, highlightImage, historyImage, loseImage, moneyBarImage, selectedBankerImage, selectedPlayerImage, selectedTieImage, tieImage, totalBetBarImage, txtBankerImage, txtPlayerImage, winImage } from "./utils/images";
 import { cardPlaceMfa, cardPlaceOgg, cardShoveMfa, cardShoveOgg, chipsCollideMfa, chipsCollideOgg, chipsHandleMfa, chipsHandleOgg, clickMfa, clickOgg, tieMfa, tieOgg, youLoseMfa, youLoseOgg, youWinMfa, youWinOgg } from "./utils/sounds";
 import { useAuthContext } from "../../../context/AuthContext";
 import "./index.css";
+import { playBaccarat } from "../../../services/web2/baccarat";
+import { signMessage } from "../../../services/web3/signatures";
+import { getTemporalWalletBalance } from "../../../services/web2/temporalWallet";
 
 class BaccaratCanvas extends React.Component {
 
@@ -25,7 +28,7 @@ class BaccaratCanvas extends React.Component {
 		this.is_tween = false;
 		this.is_ready = true;
 		this.cards = new window.createjs.Container();
-		this.cur_cash = 500;
+		this.cur_cash = 0;
 		this.player_natural = false;
 		this.dealer_natural = false;
 		this.highlights = new window.createjs.Container();
@@ -49,10 +52,6 @@ class BaccaratCanvas extends React.Component {
 		this.load();
 		window.addEventListener("resize", this.resizeGame);
 		this.resizeGame();
-	}
-
-	componentDidUpdate () {
-		console.log(this.props.currentAccount);
 	}
 
 	load () {
@@ -115,10 +114,10 @@ class BaccaratCanvas extends React.Component {
 			{src:cardClubEightImage, id:"card-club-8"},
 			{src:cardClubNineImage, id:"card-club-9"},
 			{src:cardClubTenImage, id:"card-club-10"},
-			{src:cardClubAImage, id:"card-club-A"},
-			{src:cardClubJImage, id:"card-club-J"},
-			{src:cardClubQImage, id:"card-club-Q"},
-			{src:cardClubKImage, id:"card-club-K"},
+			{src:cardClubAImage, id:"card-club-1"},
+			{src:cardClubJImage, id:"card-club-11"},
+			{src:cardClubQImage, id:"card-club-12"},
+			{src:cardClubKImage, id:"card-club-13"},
 			{src:cardDiamondTwoImage, id:"card-diamond-2"},
 			{src:cardDiamondThreeImage, id:"card-diamond-3"},
 			{src:cardDiamondFourImage, id:"card-diamond-4"},
@@ -128,10 +127,10 @@ class BaccaratCanvas extends React.Component {
 			{src:cardDiamondEightImage, id:"card-diamond-8"},
 			{src:cardDiamondNineImage, id:"card-diamond-9"},
 			{src:cardDiamondTenImage, id:"card-diamond-10"},
-			{src:cardDiamondAImage, id:"card-diamond-A"},
-			{src:cardDiamondJImage, id:"card-diamond-J"},
-			{src:cardDiamondQImage, id:"card-diamond-Q"},
-			{src:cardDiamondKImage, id:"card-diamond-K"},
+			{src:cardDiamondAImage, id:"card-diamond-1"},
+			{src:cardDiamondJImage, id:"card-diamond-11"},
+			{src:cardDiamondQImage, id:"card-diamond-12"},
+			{src:cardDiamondKImage, id:"card-diamond-13"},
 			{src:cardHeartTwoImage, id:"card-heart-2"},
 			{src:cardHeartThreeImage, id:"card-heart-3"},
 			{src:cardHeartFourImage, id:"card-heart-4"},
@@ -141,10 +140,10 @@ class BaccaratCanvas extends React.Component {
 			{src:cardHeartEightImage, id:"card-heart-8"},
 			{src:cardHeartNineImage, id:"card-heart-9"},
 			{src:cardHeartTenImage, id:"card-heart-10"},
-			{src:cardHeartAImage, id:"card-heart-A"},
-			{src:cardHeartJImage, id:"card-heart-J"},
-			{src:cardHeartQImage, id:"card-heart-Q"},
-			{src:cardHeartKImage, id:"card-heart-K"},
+			{src:cardHeartAImage, id:"card-heart-1"},
+			{src:cardHeartJImage, id:"card-heart-11"},
+			{src:cardHeartQImage, id:"card-heart-12"},
+			{src:cardHeartKImage, id:"card-heart-13"},
 			{src:cardSpadeTwoImage, id:"card-spade-2"},
 			{src:cardSpadeThreeImage, id:"card-spade-3"},
 			{src:cardSpadeFourImage, id:"card-spade-4"},
@@ -154,10 +153,10 @@ class BaccaratCanvas extends React.Component {
 			{src:cardSpadeEightImage, id:"card-spade-8"},
 			{src:cardSpadeNineImage, id:"card-spade-9"},
 			{src:cardSpadeTenImage, id:"card-spade-10"},
-			{src:cardSpadeAImage, id:"card-spade-A"},
-			{src:cardSpadeJImage, id:"card-spade-J"},
-			{src:cardSpadeQImage, id:"card-spade-Q"},
-			{src:cardSpadeKImage, id:"card-spade-K"},
+			{src:cardSpadeAImage, id:"card-spade-1"},
+			{src:cardSpadeJImage, id:"card-spade-11"},
+			{src:cardSpadeQImage, id:"card-spade-12"},
+			{src:cardSpadeKImage, id:"card-spade-13"},
 			{src:cardBackImage, id:"card_back_img"},
 			{src:clickOgg, id:"Click_ogg"},
 			{src:cardPlaceOgg, id:"cardPlace_ogg"},
@@ -582,6 +581,15 @@ class BaccaratCanvas extends React.Component {
 		this.txt_cash.setTransform(140, 54);
 		this.txt_cash.scaleX = this.txt_cash.scaleY = 0.9;
 		this.stage.addChild(this.txt_cash);
+		this.getCasinoFunds();
+	}
+
+	async getCasinoFunds() {
+		const body = {
+			address: this.props.currentAccount
+		}
+		const resp = await getTemporalWalletBalance(body);
+		this.updateCash(resp.message.cinBalance);
 	}
 
 	updateHistory() {
@@ -615,7 +623,7 @@ class BaccaratCanvas extends React.Component {
 
 					if (name === "btn_deal") {
 						if (this.cur_cash > 0) {
-							this.deal();
+							this.play();
 						} else {
 							if (this.reload_money) {
 								this.is_ready = true;
@@ -845,8 +853,10 @@ class BaccaratCanvas extends React.Component {
 		}
 	}
 
-	updateCash() {
-		this.txt_cash.text = this.cur_cash.toString();
+	updateCash(cash) {
+		let c = parseInt(cash);
+		this.cur_cash = c;
+		this.txt_cash.text = c.toString();
 
 		if (this.save_money === true) {
 			localStorage.setItem("cash", this.cur_cash);
@@ -867,6 +877,179 @@ class BaccaratCanvas extends React.Component {
 
 		this.b_deal.alpha = 0;
 		this.chips.alpha = 0;
+	}
+
+	async play() {
+		this.cardReset();
+		this.valueBar("show");
+
+		this.props.setIsLoading(true);
+		let authMessage = process.env.REACT_APP_AUTH_MESSAGE;
+		const signedMessage = await signMessage(authMessage, false);
+		const body = {
+			address: this.props.currentAccount,
+			token: authMessage,
+			signature: signedMessage,
+			tieBetAmount: this.bet_value[1],
+			playerBetAmount: this.bet_value[0],
+			bankerBetAmount: this.bet_value[2]
+		}
+		const resp = await playBaccarat(body);
+		console.log(resp);
+		this.props.setIsLoading(false);
+
+		const isWinner = resp.message.isWinner;
+		const bankerHand = resp.message.bankerHand;
+		const playerHand = resp.message.playerHand;
+		const payout = resp.message.payout;
+
+		let mergedHands = [];
+
+		for (let i=0; i<3; i++) {
+			if (i < playerHand.length) {
+				mergedHands.push(playerHand[i]);
+			}
+			if (i < bankerHand.length) {
+				mergedHands.push(bankerHand[i]);
+			}
+		}
+
+		const mHL = mergedHands.length;
+
+		let hWMC = mHL === 6 || mHL === 4 ? 0 : 
+					bankerHand.length > playerHand.length ? 2 : 1;
+		
+		let counter = 0;
+		for (const card of mergedHands) {
+			if (counter !== 0) {
+				await this.sleep(500);
+			}
+			if (hWMC === 0 || hWMC === 1) {
+				if (counter%2 === 0) {
+					this.iAddCard("player", card, counter);
+				} else {
+					this.iAddCard("dealer", card, counter);
+				}
+			} else {
+				if (counter<=3) {
+					if (counter%2 === 0) {
+						this.iAddCard("player", card, counter);
+					} else {
+						this.iAddCard("dealer", card, counter);
+					}
+				} else {
+					this.iAddCard("dealer", card, counter);
+				}
+			}
+			counter++;
+		}
+
+		await this.sleep(1000);
+
+		if (payout === 8) {
+			for (let i=0; i<3; i++) {
+				this.getChips("win", i);
+			}
+			this.playSound("Tie");
+			this.spawnImage("tie");
+		} else {
+			if (isWinner) {
+				for (let i=0; i<3; i++) {
+					this.getChips("win", i);
+				}
+				this.playSound("youwin");
+				this.spawnImage("win");
+			} else {
+				for (let i=0; i<3; i++) {
+					this.getChips("lose", i);
+				}
+				this.playSound("youlose");
+				this.spawnImage("lose");
+			}
+		}
+
+		this.updateCash();
+		this.getCasinoFunds();
+
+		this.history_value.unshift(this.player_value, this.dealer_value);
+		this.updateHistory();
+
+		await this.sleep(3000);
+
+		this.cardsUp()
+	}
+
+	sleep(ms) {
+		return new Promise(res => setTimeout(res, ms));
+	}
+
+	iAddCard(e, random, hitcount) {
+		let cardSpeed = 400;
+		let cardType = this.randomCard();
+
+		let posX;
+		if (e==="player") {
+			this.player_value = this.iSumValue(this.player_value, this.iCheckCardValue(random));
+			this.txt_player.text = this.player_value.toString();
+			this.txt_player.regX = this.txt_player.getBounds().width/2;
+			this.txt_player.x = this.value_bar_1.x + 12;
+			posX = 480 + (25 * hitcount);
+		} else if (e==="dealer") {
+			this.dealer_value = this.iSumValue(this.dealer_value, this.iCheckCardValue(random));
+			this.txt_dealer.text = this.dealer_value.toString();
+			this.txt_dealer.regX = this.txt_dealer.getBounds().width/2;
+			this.txt_dealer.x = this.value_bar_2.x + 12;
+			posX = 800 + (25 * hitcount);
+		}
+
+		let posY = 220;
+		
+		let card = new window.createjs.Bitmap(this.img("card"+cardType+random));
+		card.setTransform(this.card_pack.x, this.card_pack.y);
+		card.regX = card.getBounds().width/2;
+		card.regY = card.getBounds().height/2;
+		card.name = e;
+		card.alpha = 0;
+		card.shadow = new window.createjs.Shadow("#000000", -1, 1, 20);
+
+		let cardB = new window.createjs.Bitmap(this.img("card_back_img"));
+		cardB.setTransform(card.x, card.y);
+		cardB.regX = cardB.getBounds().width/2;
+		cardB.regY = cardB.getBounds().height/2;
+
+		this.cards.addChild(card);
+		this.card_back.addChild(cardB);
+
+		window.createjs.Tween.get(cardB)
+			.to({x:posX, y:posY}, cardSpeed)
+			.call(function() {
+				this.iSetCardPosition(cardB, card);
+				this.playSound("cardPlace");
+			}.bind(this));
+	}
+
+	iSetCardPosition(cb, cc) {
+		let target = cb.x - 25;
+
+		window.createjs.Tween.get(cc)
+			.to({x: target}, 100);
+		
+		window.createjs.Tween.get(cb)
+			.to({x: target}, 100)
+			.call(
+				function() {
+					this.flipCard(cb, cc);
+				}.bind(this)
+			);
+	}
+
+	iCheckCardValue(c) {
+		return c <= 9 ? c : 0;
+	}
+
+	iSumValue(c, sv) {
+		let ts = c+sv;
+		return ts < 10 ? ts : ts-10;
 	}
 
 	hit() {
@@ -1315,6 +1498,7 @@ class BaccaratCanvas extends React.Component {
 		return(
 			<div id="canvas-container" className="canvas-container">
 				<canvas id="canvas" width="1280" height="720"></canvas>
+				{this.props.children}
 			</div>
 		);
 	}
@@ -1325,12 +1509,18 @@ class BaccaratCanvas extends React.Component {
 const Baccarat = (props) => {
 
 	const { currentAccount } = useAuthContext();
+	const [isLoading, setIsLoading] = useState(false);
 
 	return (
 		<MainLayout>
 			<BaccaratCanvas
 				currentAccount={currentAccount}
-			/>
+				setIsLoading={setIsLoading}
+			>
+				<div className={`loading-container ${isLoading ? "visible" : ""}`}>
+					<div className="lds-circle"><div></div></div>
+				</div>
+			</BaccaratCanvas>
 		</MainLayout>
 	);
 }

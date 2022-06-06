@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { AGE_VERIFICATION_CONTRACT_ABI, AGE_VERIFICATION_CONTRACT_ADDRESS, WRISTBAND_WRLD_PRICE, WRLD_CONTRACT_ABI, WRLD_CONTRACT_ADDRESS } from "../../utils/constants/contracts";
 
-export const checkIfUserHasWristband = async (address, setHasWristband) => {
+export const checkIfUserHasWristband = async (address) => {
     try {
         const { ethereum } = window;
 
@@ -14,7 +14,7 @@ export const checkIfUserHasWristband = async (address, setHasWristband) => {
 
             let balanceNumber = addressBalance.toNumber();
 
-            setHasWristband(balanceNumber > 0);
+            return balanceNumber > 0;
         } else {
             alert("Man, go and get Metamask!");
         }
@@ -24,7 +24,7 @@ export const checkIfUserHasWristband = async (address, setHasWristband) => {
     }
 }
 
-export const mintWristband = async (success) => {
+export const mintWristband = async () => {
     try {
         const { ethereum } = window;
 
@@ -44,7 +44,6 @@ export const mintWristband = async (success) => {
             await mintTxn.wait();
             console.log("Successfully minted Age Verification Wristband");
 
-            success(true);
         } else {
             alert("Man, go and get Metamask!");
         }
@@ -74,7 +73,7 @@ export const getWristbandRenewDate = async (address, setRenewDate) => {
     }
 }
 
-export const updateRenewDate = async (address, success) => {
+export const updateRenewDate = async (address) => {
     try {
         const { ethereum } = window;
 
@@ -93,8 +92,6 @@ export const updateRenewDate = async (address, success) => {
 
             await updateRD.wait();
             console.log("Successfully updated renew date for Age Verification Wristband");
-
-            success(true);
         } else {
             alert("Man, go and get Metamask!");
         }

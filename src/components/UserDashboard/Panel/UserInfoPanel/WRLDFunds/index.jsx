@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { addFunds, getFunds, withdrawFunds } from "../../../../../services/web3/gamepool";
+import { withdrawService } from "../../../../../services/web2/temporalWallet";
+import { signMessage } from "../../../../../services/web3/signatures";
+import { addWrldFunds, getWrldFunds } from "../../../../../services/web3/wrldToken";
 import FirstButton from "../../../../Buttons/FirstButton";
 import TextButton from "../../../../Buttons/TextButton";
 import InputField from "../../../../InputField";
+import Web32FAModal from "../../../../Modals/Web32FAModal";
 import "./index.css";
 
 const WRLDFunds = (props) => {
@@ -13,12 +16,15 @@ const WRLDFunds = (props) => {
 
     const [withdrawStatus, setWithdrawStatus] = useState(0);
     const withdrawInput = useRef(null);
+    const cinAddress = localStorage.getItem("cinAddress");
+
+    const [showW32FAModal, setShowW32FAModal] = useState(false);
 
     useEffect(() => {
-        if(props.currentAccount) {
-            getFunds(props.currentAccount, setWrldFunds);
+        if(cinAddress) {
+            getWrldFunds(cinAddress, setWrldFunds);
         }
-    }, [props.currentAccount]);
+    }, [cinAddress, setWrldFunds]);
 
     const handleAddFunds = async () => {
         if (addFundsStatus === 0) {
@@ -26,8 +32,8 @@ const WRLDFunds = (props) => {
         } else if (addFundsStatus === 1) {
             let toCharge = parseInt(wrldInput.current.value);
             if (toCharge > 0) {
-                await addFunds(toCharge);
-                await getFunds(props.currentAccount, setWrldFunds);
+                await addWrldFunds(toCharge, cinAddress);
+                await getWrldFunds(cinAddress, setWrldFunds);
                 setAddFundsStatus(0);
             }
         }
@@ -37,13 +43,23 @@ const WRLDFunds = (props) => {
         if (withdrawStatus === 0) {
             setWithdrawStatus(1);
         } else if (withdrawStatus === 1) {
-            let toWithdraw = parseInt(withdrawInput.current.value);
-            if (toWithdraw > 0) {
-                await withdrawFunds(toWithdraw);
-                await getFunds(props.currentAccount, setWrldFunds);
+            if (parseInt(withdrawInput.current.value) > 0) {
+                setShowW32FAModal(true);
             }
-            setWithdrawStatus(0);
         }
+    }
+
+    const signAndWithdraw = async (pwd) => {
+        const signedPwd = await signMessage(pwd, true);
+        console.log(`Going to withdraw ${withdrawInput.current.value} $WRLD with pwd ${signedPwd}`);
+        const body = {
+            address: props.currentAccount,
+            amount: parseInt(withdrawInput.current.value),
+            sign: signedPwd
+        };
+        await withdrawService(body);
+        await getWrldFunds(cinAddress, setWrldFunds);
+        setWithdrawStatus(0);
     }
 
     return (
@@ -84,7 +100,8 @@ const WRLDFunds = (props) => {
                 className="withdraw-button"
                 method={handleWithdraw}
                 text="Withdraw funds"
-            />            
+            />
+            <Web32FAModal visible={showW32FAModal} canCloseOutside={true} hide={() => {setShowW32FAModal(false)}} method={signAndWithdraw}/>    
         </div>
     );
 }

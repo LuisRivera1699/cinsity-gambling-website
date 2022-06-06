@@ -4,7 +4,7 @@ import wave1Source from "./assets/wave1.png";
 import wave2Source from "./assets/wave2.mp4";
 import TokenCard from "./TokenCard";
 import { useEffect, useState } from "react";
-import { getTokensBalances } from "../../../services/web3/orchestrator";
+import { getTokenBalances } from "../../../services/web2/tokenBalances";
 
 const TokensDashboard = (props) => {
     const [tab, setTab] = useState(0);
@@ -18,10 +18,20 @@ const TokensDashboard = (props) => {
     const [wave1Balance, setWave1Balance] = useState(0);
 
     useEffect(() => {
-        if (props.currentAccount) {
-            getTokensBalances(props.currentAccount, setWristbandBalance, setFoundersPassBalances, setWave1Balance);
+        const getMyBalances = async () => {
+            const body = {
+                address: props.currentAccount,
+            }
+            const resp = await getTokenBalances(body);
+            setWristbandBalance(resp.message.hasWb ? 1 : 0);
+            setFoundersPassBalances([resp.message.wave2Balance, resp.message.wave3Balance]);
+            setWave1Balance(resp.message.wave1Balance);
         }
-    }, [props.currentAccount]);
+
+        if (props.currentAccount) {
+            getMyBalances();
+        }
+    }, [props.currentAccount, wave1Balance]);
 
     useEffect(() => {
         setWristband(

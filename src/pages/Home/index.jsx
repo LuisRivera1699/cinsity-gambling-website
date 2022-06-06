@@ -32,17 +32,17 @@ const Home = () => {
                         <span className="text-pink">Gambling Website</span>
                     </h1>
                     <div className="banner-button-container">
-                        <FirstButton
+                        <a href="/#games" alt=""><FirstButton
                             isAsync={false}
                             className="banner-button"
                             text="START PLAYING"
                             method={() => {}}
-                        />
+                        /></a>
                         <img className="bounce" src={arrowDown} alt="" />
                     </div>
                 </div>
             </div>
-            <div className="games-section">
+            <div className="games-section" id="games">
                 <h2>
                     <span className="text-blue">Meet our </span>
                     <span className="text-pink">gambling games</span>
@@ -53,6 +53,7 @@ const Home = () => {
                     gameImage={baccarat}
                     gameTitle="Baccarat"
                     gameDescription="Originated from Italy in 1400, in this simple game of guessing, there are 2 options. Banker's hand, and Player's hand. The hand that has the highest points out of a possible 9 points will be victorious. Will you win with the House or bet against it?"
+                    isActive={true}
                 />
                 <Game
                     link="blackjack"

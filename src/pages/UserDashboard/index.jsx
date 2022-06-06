@@ -6,8 +6,9 @@ import "./index.css";
 import SettingsPanel from "../../components/UserDashboard/Panel/SettingsPanel";
 import SettingsModal from "../../components/Modals/SettingsModal";
 import { useEffect, useState } from "react";
-import { checkIfHasSignature, signMessage, validateSignature } from "../../services/web3/web32fa";
+import { checkIfHasSignature, validateSignature } from "../../services/web3/web32fa";
 import Web32FAModal from "../../components/Modals/Web32FAModal";
+import { signMessage } from "../../services/web3/signatures";
 
 const UserDashboard = (props) => {
 
@@ -30,7 +31,7 @@ const UserDashboard = (props) => {
     }, [currentAccount]);
 
     const signPwdAndValidateWeb32FASignature = async (pwd) => {
-        const signedPwd = await signMessage(pwd);
+        const signedPwd = await signMessage(pwd, true);
         await validateSignature(currentAccount, signedPwd);
     }
 

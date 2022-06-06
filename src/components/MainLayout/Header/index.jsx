@@ -9,10 +9,10 @@ const Header = (props) => {
             <header>
                 <a href="/"><img src={logo} alt=""/></a>
                 <ProfileButton
-                    currentAccount={props.currentAccount}
+                    currentAccount={props.isAuthenticated ? props.currentAccount : undefined}
                 />
                 <WalletButton
-                    currentAccount={props.currentAccount}
+                    currentAccount={props.isAuthenticated ? props.currentAccount : undefined}
                     connectWallet={props.connectWallet}
                 />
             </header>

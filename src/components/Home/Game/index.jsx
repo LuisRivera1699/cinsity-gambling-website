@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import FirstButton from "../../Buttons/FirstButton";
 import TextButton from "../../Buttons/TextButton";
 import gradientBg from "./assets/gradient-bg.png";
 import "./index.css";
 
 const Game = (props) => {
+    const navigate = useNavigate();
     return(
         <div className={`game-container ${props.reverse ? "card-reverse" : ""}`}>
             <div className="card-container">
@@ -16,8 +18,8 @@ const Game = (props) => {
                 <div className="game-buttons">
                     <FirstButton
                         isAsync={false}
-                        text="COMMING SOON"
-                        method={() => {}}
+                        text={props.isActive ? "PLAY NOW" : "COMMING SOON"}
+                        method={props.isActive ? () => {navigate(`games/${props.link}`)} : ()=>{}}
                     />
                     <TextButton link={`rules/${props.link}`} text="See our rules"/>
                 </div>

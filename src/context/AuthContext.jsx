@@ -1,62 +1,123 @@
 import { createContext, useContext, useEffect, useState } from "react"
+import { checkTokenService, loginService } from "../services/web2/auth";
+import { signMessage } from "../services/web3/signatures";
 
 const AuthContext = createContext();
 AuthContext.displayName = "AuthContext";
 
 export const AuthProvider = ({children}) => {
     const [currentAccount, setCurrentAccount] = useState(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(null);
+    const [needWristband, setNeedWristband] = useState(null);
 
-    const checkIfWalletIsConnected = async () => {
-        const {ethereum} = window;
+    const checkIfWalletIsConnectedAndLoggedIn = async () => {
+        const { ethereum } = window;
 
         if (!ethereum) {
-            alert("Man, go and install Metamask!");
+            alert("Man, go and get Metamask!");
             return;
         }
 
-        const accounts = await ethereum.request({method: 'eth_accounts'});
+        let lSAccount = localStorage.getItem("account");
+        let lSAccessToken = localStorage.getItem("accessToken");
+
+        if (lSAccount === null || lSAccessToken === null) {
+            localStorage.removeItem("account");
+            localStorage.removeItem("accessToken");
+            setIsAuthenticated(false);
+            return;
+        }
+
+        const resp = await checkTokenService();
+
+        if (resp.success === true) {
+            setIsAuthenticated(true);
+            setCurrentAccount(lSAccount);
+        } else {
+            localStorage.removeItem("account");
+            localStorage.removeItem("accessToken");
+            setIsAuthenticated(false);
+        }
+
+    }
+
+    const login = async () => {
+        const { ethereum } = window;
+
+        if (!ethereum) {
+            alert("Man, go and get Metamask!");
+            return;
+        }
+
+        let accounts = await ethereum.request({method: "eth_accounts"});
+
+        let account;
 
         if (accounts.length !== 0) {
-            const account = accounts[0];
-            setCurrentAccount(account);
-        } 
-    }
-
-    const connectWallet = async () => {
-        try {
-            const { ethereum } = window;
-
-            if (!ethereum) {
-                alert("Man, go and install Metamask!");
-                return;
+            account = accounts[0];
+        } else {
+            try {
+                accounts = await ethereum.request({method: "eth_requestAccounts"});
+                account = accounts[0];
+            } catch (error) {
+                console.error(error);
+                throw error;
             }
-
-            const accounts = await ethereum.request({method: "eth_requestAccounts"});
-
-            setCurrentAccount(accounts[0]);
-        } catch (error) {
-            console.log(error);
-            alert("There has been an error. Refresh the page and try again.");
         }
-    }
 
-    useEffect(() => {
-        checkIfWalletIsConnected();
-    });
+        try {
+            let authMessage = process.env.REACT_APP_AUTH_MESSAGE;
+            const signedMessage = await signMessage(authMessage, false);
+            const body = {
+                address: account,
+                token: authMessage,
+                signature: signedMessage,
+            };
+            const resp = await loginService(body);
+            console.log(resp);
+            if (resp.message !== "WB verification failed") {
+                setCurrentAccount(account);
+                setNeedWristband(false);
+                setIsAuthenticated(true);
+                localStorage.setItem("accessToken", resp.accessToken);
+                localStorage.setItem("account", account);
+                localStorage.setItem("cinAddress", resp.cinAddress);
+            } else {
+                setCurrentAccount(account);
+                setIsAuthenticated(false);
+                setNeedWristband(true);
+            }         
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+
+    }
 
     useEffect(() => {
         if (window.ethereum) {
             window.ethereum.on(
                 'accountsChanged', () => {
-                    window.location.reload();
+                    if (isAuthenticated) {
+                        alert("You are changing your wallet. This will trigger a logout.");
+                        localStorage.removeItem("account");
+                        localStorage.removeItem("accessToken");
+                        window.location.reload();
+                    }
                 }
             );
         }
     });
 
+    useEffect(() => {
+        checkIfWalletIsConnectedAndLoggedIn();
+    }, [isAuthenticated]);
+
     const value = {
-        connectWallet,
-        currentAccount
+        currentAccount,
+        login,
+        isAuthenticated,
+        needWristband
     }
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

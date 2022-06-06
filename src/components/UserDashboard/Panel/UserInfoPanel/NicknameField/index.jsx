@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import "./index.css";
 import editIcon from "./assets/edit.png";
-import { getUserNickname, setUserNickname } from "../../../../../services/web3/playermanager";
 import InputField from "../../../../InputField";
+import { editNickname, getMyNickname } from "../../../../../services/web2/nickname";
+import { signMessage } from "../../../../../services/web3/signatures";
 
 const NicknameField = (props) => {
     const [status, setStatus] = useState(0);
@@ -16,8 +17,15 @@ const NicknameField = (props) => {
     }, [nickname]);
 
     useEffect(() => {
+        const getNickname = async () => {
+            const body = {
+                address: props.currentAccount,
+            }
+            const resp = await getMyNickname(body);
+            setNickname(resp.message);
+        }
         if (props.currentAccount) {
-            getUserNickname(props.currentAccount, setNickname);
+            getNickname();
         }
     }, [props.currentAccount]);
 
@@ -25,11 +33,16 @@ const NicknameField = (props) => {
         if (e.key === "Enter") {
             e.preventDefault();
             let nicknameValue = nicknameInput.current.value;
-            let isSet = nickname !== "" && nickname !== null && nickname !== undefined;
-            await setUserNickname(nicknameValue, isSet ? true : false, setNickname);
-            if (nicknameValue !== "") {
-                setNickname(nicknameValue);
+            let authMessage = process.env.REACT_APP_AUTH_MESSAGE;
+            const signedMessage = await signMessage(authMessage, false);
+            const body = {
+                address: props.currentAccount,
+                token: authMessage,
+                signature: signedMessage,
+                nickname: nicknameValue
             }
+            await editNickname(body);
+            setNickname(nicknameValue);
         }
     }
 

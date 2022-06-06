@@ -1,12 +1,13 @@
 import BaseModal from "..";
-import { setSignature, signMessage } from "../../../services/web3/web32fa";
+import { signMessage } from "../../../services/web3/signatures";
+import { setSignature } from "../../../services/web3/web32fa";
 import "./index.css";
 import SettingsItem from "./SettingsItem";
 
 const SettingsModal = (props) => {
 
     const signPwdAndSetWeb32FASignature = async (pwd) => {
-        const signedPwd = await signMessage(pwd);
+        const signedPwd = await signMessage(pwd, true);
         await setSignature(props.hasWeb32FA, signedPwd);
         props.setHasWeb32FA(true);
     }
