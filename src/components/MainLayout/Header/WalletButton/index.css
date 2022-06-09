@@ -17,12 +17,39 @@
     cursor: pointer;
 }
 
-.wallet-button > span {
+.wallet-button.drop {
+    border-radius: 20px 20px 0 0;
+}
+
+.wallet-button > span, .logout-button > span {
     font-size: 1.05em;
     font-weight: 600;
 }
 
 .wallet-button > img {
     margin-left: 5px;
+}
+
+.wbutton-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.logout-button {
+    display: none;
+    position: absolute;
+    top: 55px;
+    height: 40px;
+    width: 190px;
+
+    background: white;
+    border: 1px solid white;
+    border-radius: 0 0 20px 20px;
+
+    color: #191D40;
+}
+
+.logout-button.visible {
+    display: block;
 }
 

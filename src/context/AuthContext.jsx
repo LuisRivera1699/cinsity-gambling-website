@@ -94,6 +94,14 @@ export const AuthProvider = ({children}) => {
 
     }
 
+    const logout = () => {
+        localStorage.removeItem("account");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("cinAddress");
+        setCurrentAccount(null);
+        setIsAuthenticated(false);
+    }
+
     useEffect(() => {
         if (window.ethereum) {
             window.ethereum.on(
@@ -116,6 +124,7 @@ export const AuthProvider = ({children}) => {
     const value = {
         currentAccount,
         login,
+        logout,
         isAuthenticated,
         needWristband
     }
