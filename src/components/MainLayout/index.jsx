@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
 import { useAuthContext } from "../../context/AuthContext";
 import { checkIfUserHasWristband, mintWristband, updateRenewDate } from "../../services/web3/wristband";
 import MintModal from "../Modals/MintModal";
@@ -6,6 +7,7 @@ import SuccessfulMintModal from "../Modals/SuccessfulMintModal";
 import Footer from "./Footer";
 import Header from "./Header";
 import "./index.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 const MainLayout = (props) => {
 
@@ -45,6 +47,7 @@ const MainLayout = (props) => {
             <Footer/>
             <MintModal type={modalType} visible={needWristband} mintMethod={mintAgeVerificationWristband} renewMethod={updateAgeVerificationWristbandRenewDate}/>
             <SuccessfulMintModal visible={showSuccessfulMintModal} closeModal={setShowSuccessfulMintModal}/>
+            <ToastContainer position="bottom-right"/>
         </div>
     );
 }

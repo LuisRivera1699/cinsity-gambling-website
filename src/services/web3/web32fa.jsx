@@ -20,8 +20,7 @@ export const checkIfHasSignature = async (setHasSignature) => {
         }
 
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }
 
@@ -50,8 +49,7 @@ export const setSignature = async (hasSignature, newSignature) => {
         }
 
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }
 

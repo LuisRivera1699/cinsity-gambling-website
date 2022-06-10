@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import BaseModal from "..";
 import { signMessage } from "../../../services/web3/signatures";
 import { setSignature } from "../../../services/web3/web32fa";
@@ -7,8 +8,21 @@ import SettingsItem from "./SettingsItem";
 const SettingsModal = (props) => {
 
     const signPwdAndSetWeb32FASignature = async (pwd) => {
-        const signedPwd = await signMessage(pwd, true);
-        await setSignature(props.hasWeb32FA, signedPwd);
+        await toast.promise( 
+            async () => {
+                const signedPwd = await signMessage(pwd, true);
+                await setSignature(props.hasWeb32FA, signedPwd);
+            },
+            {
+                pending: false,
+                success: 'Web32FA Password signature successfully created/updated!',
+                error: {
+                    render({data}) {
+                        return data.message;
+                    }
+                }
+            }
+        );
         props.setHasWeb32FA(true);
     }
 

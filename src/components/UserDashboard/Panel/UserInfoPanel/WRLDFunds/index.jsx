@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 import { withdrawService } from "../../../../../services/web2/temporalWallet";
 import { signMessage } from "../../../../../services/web3/signatures";
 import { addWrldFunds, getWrldFunds } from "../../../../../services/web3/wrldToken";
@@ -22,7 +23,14 @@ const WRLDFunds = (props) => {
 
     useEffect(() => {
         if(cinAddress) {
-            getWrldFunds(cinAddress, setWrldFunds);
+            toast.promise(
+                getWrldFunds(cinAddress, setWrldFunds),
+                {
+                    pending: false,
+                    success: false,
+                    error: 'An error has ocurred, check if you are on the correct network.'
+                }
+            );
         }
     }, [cinAddress, setWrldFunds]);
 
@@ -32,7 +40,18 @@ const WRLDFunds = (props) => {
         } else if (addFundsStatus === 1) {
             let toCharge = parseInt(wrldInput.current.value);
             if (toCharge > 0) {
-                await addWrldFunds(toCharge, cinAddress);
+                await toast.promise(
+                    addWrldFunds(toCharge, cinAddress),
+                    {
+                        pending: false,
+                        success: 'Successfully withdrew!',
+                        error: {
+                            render({data}) {
+                                return data.message;
+                            }
+                        }
+                    }
+                );
                 await getWrldFunds(cinAddress, setWrldFunds);
                 setAddFundsStatus(0);
             }
@@ -43,21 +62,38 @@ const WRLDFunds = (props) => {
         if (withdrawStatus === 0) {
             setWithdrawStatus(1);
         } else if (withdrawStatus === 1) {
-            if (parseInt(withdrawInput.current.value) > 0) {
-                setShowW32FAModal(true);
+            let toWithdraw = parseInt(withdrawInput.current.value);
+            if (toWithdraw > 0) {
+                if (toWithdraw > wrldFunds) {
+                    toast.warn('Would exceed $WRLD amount.');
+                } else {
+                    setShowW32FAModal(true);
+                }
             }
         }
     }
 
     const signAndWithdraw = async (pwd) => {
-        const signedPwd = await signMessage(pwd, true);
-        console.log(`Going to withdraw ${withdrawInput.current.value} $WRLD with pwd ${signedPwd}`);
-        const body = {
-            address: props.currentAccount,
-            amount: parseInt(withdrawInput.current.value),
-            sign: signedPwd
-        };
-        await withdrawService(body);
+        await toast.promise(
+            async () => {
+                const signedPwd = await signMessage(pwd, true);
+                const body = {
+                    address: props.currentAccount,
+                    amount: parseInt(withdrawInput.current.value),
+                    sign: signedPwd
+                };
+                withdrawService(body);
+            },
+            {
+                pending: false,
+                success: 'Successfully withdrew!',
+                error: {
+                    render({data}) {
+                        return data.message;
+                    }
+                }
+            }
+        );
         await getWrldFunds(cinAddress, setWrldFunds);
         setWithdrawStatus(0);
     }

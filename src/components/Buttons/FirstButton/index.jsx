@@ -7,7 +7,7 @@ const FirstButton = (props) => {
 
     const handleClickAsync = async () => {
         setIsProcessing(true);
-        await props.method();
+        await props.method().catch(() => {setIsProcessing(false);});
         setIsProcessing(false);
     }
 

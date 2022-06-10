@@ -13,13 +13,13 @@ const SettingsItem = (props) => {
         setIsOpened(!isOpened);
     }
 
-    const handleButtonClick = () => {
+    const handleButtonClick = async () => {
         const inputValue = inputField.current.value;
         
         if (inputValue.length > 0) {
-            props.method(inputValue);
+            await props.method(inputValue);
+            inputField.current.value = "";
         }
-
     }
 
     return (

@@ -18,8 +18,7 @@ export const getWrldFunds = async (address, setFunds) => {
             alert("Man, go and get Metamask!");
         }
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }
 
@@ -39,7 +38,6 @@ export const addWrldFunds = async (amount, address) => {
             alert("Man, go and get Metamask!");
         }
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }

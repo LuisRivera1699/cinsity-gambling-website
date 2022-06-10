@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { checkIfHasSignature, validateSignature } from "../../services/web3/web32fa";
 import Web32FAModal from "../../components/Modals/Web32FAModal";
 import { signMessage } from "../../services/web3/signatures";
+import { toast } from "react-toastify";
 
 const UserDashboard = (props) => {
 
@@ -26,7 +27,14 @@ const UserDashboard = (props) => {
 
     useEffect(() => {
         if (currentAccount) {
-            checkIfHasSignature(setHasWeb32FA);
+            toast.promise(
+                checkIfHasSignature(setHasWeb32FA),
+                {
+                    pending: false,
+                    success: false,
+                    error: 'An error has ocurred, check if you are on the correct network.'
+                }
+            );
         }
     }, [currentAccount]);
 

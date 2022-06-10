@@ -13,6 +13,12 @@ body {
     color: white;
 }
 
+:root {
+    --toastify-color-success: #5966DD !important;
+    --toastify-color-warning: #e9e215 !important;
+    --toastify-color-error: #C8168F !important;
+}
+
 .page-section {
     padding: 0 50px;
 }

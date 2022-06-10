@@ -24,6 +24,7 @@ export const AuthProvider = ({children}) => {
         if (lSAccount === null || lSAccessToken === null) {
             localStorage.removeItem("account");
             localStorage.removeItem("accessToken");
+            localStorage.removeItem("cinAddress");
             setIsAuthenticated(false);
             return;
         }
@@ -36,6 +37,7 @@ export const AuthProvider = ({children}) => {
         } else {
             localStorage.removeItem("account");
             localStorage.removeItem("accessToken");
+            localStorage.removeItem("cinAddress");
             setIsAuthenticated(false);
         }
 
@@ -107,9 +109,9 @@ export const AuthProvider = ({children}) => {
             window.ethereum.on(
                 'accountsChanged', () => {
                     if (isAuthenticated) {
-                        alert("You are changing your wallet. This will trigger a logout.");
                         localStorage.removeItem("account");
                         localStorage.removeItem("accessToken");
+                        localStorage.removeItem("cinAddress");
                         window.location.reload();
                     }
                 }
