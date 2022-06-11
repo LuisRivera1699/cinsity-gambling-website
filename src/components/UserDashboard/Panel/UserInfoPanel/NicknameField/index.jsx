@@ -3,7 +3,7 @@ import "./index.css";
 import editIcon from "./assets/edit.png";
 import InputField from "../../../../InputField";
 import { editNickname, getMyNickname } from "../../../../../services/web2/nickname";
-import { signMessage } from "../../../../../services/web3/signatures";
+import { getAuthMessage, getAuthMessageSignature } from "../../../../../utils/functions/authMessage";
 
 const NicknameField = (props) => {
     const [status, setStatus] = useState(0);
@@ -33,8 +33,8 @@ const NicknameField = (props) => {
         if (e.key === "Enter") {
             e.preventDefault();
             let nicknameValue = nicknameInput.current.value;
-            let authMessage = process.env.REACT_APP_AUTH_MESSAGE;
-            const signedMessage = await signMessage(authMessage, false);
+            let authMessage = getAuthMessage(props.currentAccount);
+            const signedMessage = await getAuthMessageSignature(authMessage, false);
             const body = {
                 address: props.currentAccount,
                 token: authMessage,

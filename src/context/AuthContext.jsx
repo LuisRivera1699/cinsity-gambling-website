@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { checkTokenService, loginService } from "../services/web2/auth";
-import { signMessage } from "../services/web3/signatures";
+import { getAuthMessage, getAuthMessageSignature } from "../utils/functions/authMessage";
 
 const AuthContext = createContext();
 AuthContext.displayName = "AuthContext";
@@ -22,9 +22,8 @@ export const AuthProvider = ({children}) => {
         let lSAccessToken = localStorage.getItem("accessToken");
 
         if (lSAccount === null || lSAccessToken === null) {
-            localStorage.removeItem("account");
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("cinAddress");
+            localStorage.clear();
+            sessionStorage.clear();
             setIsAuthenticated(false);
             return;
         }
@@ -35,9 +34,8 @@ export const AuthProvider = ({children}) => {
             setIsAuthenticated(true);
             setCurrentAccount(lSAccount);
         } else {
-            localStorage.removeItem("account");
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("cinAddress");
+            localStorage.clear();
+            sessionStorage.clear();
             setIsAuthenticated(false);
         }
 
@@ -68,8 +66,8 @@ export const AuthProvider = ({children}) => {
         }
 
         try {
-            let authMessage = process.env.REACT_APP_AUTH_MESSAGE;
-            const signedMessage = await signMessage(authMessage, false);
+            let authMessage = getAuthMessage(account);
+            const signedMessage = await getAuthMessageSignature(authMessage, false);
             const body = {
                 address: account,
                 token: authMessage,
@@ -97,9 +95,8 @@ export const AuthProvider = ({children}) => {
     }
 
     const logout = () => {
-        localStorage.removeItem("account");
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("cinAddress");
+        localStorage.clear();
+        sessionStorage.clear();
         setCurrentAccount(null);
         setIsAuthenticated(false);
     }
@@ -109,9 +106,7 @@ export const AuthProvider = ({children}) => {
             window.ethereum.on(
                 'accountsChanged', () => {
                     if (isAuthenticated) {
-                        localStorage.removeItem("account");
-                        localStorage.removeItem("accessToken");
-                        localStorage.removeItem("cinAddress");
+                        logout();
                         window.location.reload();
                     }
                 }

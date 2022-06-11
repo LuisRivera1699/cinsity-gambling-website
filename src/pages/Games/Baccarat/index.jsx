@@ -6,8 +6,8 @@ import { cardPlaceMfa, cardPlaceOgg, cardShoveMfa, cardShoveOgg, chipsCollideMfa
 import { useAuthContext } from "../../../context/AuthContext";
 import "./index.css";
 import { playBaccarat } from "../../../services/web2/baccarat";
-import { signMessage } from "../../../services/web3/signatures";
 import { getTemporalWalletBalance } from "../../../services/web2/temporalWallet";
+import { getAuthMessage, getAuthMessageSignature } from "../../../utils/functions/authMessage";
 
 class BaccaratCanvas extends React.Component {
 
@@ -884,8 +884,8 @@ class BaccaratCanvas extends React.Component {
 		this.valueBar("show");
 
 		this.props.setIsLoading(true);
-		let authMessage = process.env.REACT_APP_AUTH_MESSAGE;
-		const signedMessage = await signMessage(authMessage, false);
+		let authMessage = getAuthMessage(this.props.currentAccount);
+		const signedMessage = await getAuthMessageSignature(authMessage, false);
 		const body = {
 			address: this.props.currentAccount,
 			token: authMessage,
