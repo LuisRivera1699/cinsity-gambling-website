@@ -8,6 +8,7 @@ import "./index.css";
 import { playBaccarat } from "../../../services/web2/baccarat";
 import { getTemporalWalletBalance } from "../../../services/web2/temporalWallet";
 import { getAuthMessage, getAuthMessageSignature } from "../../../utils/functions/authMessage";
+import { toast } from "react-toastify";
 
 class BaccaratCanvas extends React.Component {
 
@@ -687,8 +688,14 @@ class BaccaratCanvas extends React.Component {
 
 	chipsClick(e) {
 		let value = e.target.currentFrame;
+		console.log(this.bet);
 
 		let result = this.checkBetValue(value);
+
+		if (this.bet + result > 400) {
+			toast.warn('Your bet would exceed the maximum betting amount which is 400 $WRLD.');
+			return;
+		}
 
 		if (this.bet <= this.cur_cash - result && this.chips_ready) {
 			this.chips_ready = false;
@@ -703,21 +710,9 @@ class BaccaratCanvas extends React.Component {
 					this.b_deal.alpha = 1;
 				}.bind(this));
 		} else if (this.bet > this.cur_cash - result && this.cur_cash > 0) {
-			alert("YOU DON'T HAVE ENOUGH MONEY");
+			toast.warn("Your bet would exceed your CinSity Wallet funds. Go to User Dashboard and fund it with more $WRLD.");
 		} else if (this.cur_cash === 0) {
-			if(this.reload_money) {
-				if (window.confirm("YPU DON'T HAVE ENOUGH MONEY:\n\nPress \"OK\" to get 500 coins!") === true) {
-					this.cur_cash = this.reload_money_amount;
-					console.log(this.cur_cash.toString());
-					this.txt_cash.text = this.cur_cash.toString();
-
-					if(this.save_money === true) {
-						localStorage.setItem("cash", this.cur_cash);
-					}
-				}
-			} else {
-				alert("YOU DON'T HAVE ENOUGH MONEY!");
-			}
+			toast.warn("Your CinSity Wallet hasn't been funded yet. Go to User Dashboard and fund it with some $WRLD.");
 		}
 	}
 
@@ -885,16 +880,31 @@ class BaccaratCanvas extends React.Component {
 
 		this.props.setIsLoading(true);
 		let authMessage = getAuthMessage(this.props.currentAccount);
-		const signedMessage = await getAuthMessageSignature(authMessage, false);
-		const body = {
-			address: this.props.currentAccount,
-			token: authMessage,
-			signature: signedMessage,
-			tieBetAmount: this.bet_value[1],
-			playerBetAmount: this.bet_value[0],
-			bankerBetAmount: this.bet_value[2]
-		}
-		const resp = await playBaccarat(body);
+		let resp;
+		await toast.promise(
+			async () => {
+				const signedMessage = await getAuthMessageSignature(authMessage, false);
+				const body = {
+					address: this.props.currentAccount,
+					token: authMessage,
+					signature: signedMessage,
+					tieBetAmount: this.bet_value[1],
+					playerBetAmount: this.bet_value[0],
+					bankerBetAmount: this.bet_value[2]
+				}
+				resp = await playBaccarat(body);
+			},
+			{
+				pending: false,
+				success: false,
+				error: {
+					render({data}) {
+						return data.message;
+					}
+				}
+			}
+		);
+		
 		console.log(resp);
 		this.props.setIsLoading(false);
 
