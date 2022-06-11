@@ -44,7 +44,7 @@ const WRLDFunds = (props) => {
                     addWrldFunds(toCharge, cinAddress),
                     {
                         pending: false,
-                        success: 'Successfully withdrew!',
+                        success: 'Successfully added funds!',
                         error: {
                             render({data}) {
                                 return data.message;
@@ -82,7 +82,7 @@ const WRLDFunds = (props) => {
                     amount: parseInt(withdrawInput.current.value),
                     sign: signedPwd
                 };
-                withdrawService(body);
+                await withdrawService(body);
             },
             {
                 pending: false,
