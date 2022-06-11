@@ -20,7 +20,7 @@ const UserInfo = (props) => {
                 <p className="info-value">{formatWallet()}</p>
             </div>
             <NicknameField currentAccount={props.currentAccount}/>
-            <WRLDFunds currentAccount={props.currentAccount}/>
+            <WRLDFunds currentAccount={props.currentAccount} hasWeb32FA={props.hasWeb32FA}/>
         </Panel>
     );
 }

@@ -59,6 +59,10 @@ const WRLDFunds = (props) => {
     }
 
     const handleWithdraw = async () => {
+        if (props.hasWeb32FA === false) {
+            toast.warn("You haven't set your Web3 2FA password yet. Click on 'Settings' and set it on the Web3 2FA section.");
+            return;
+        }
         if (withdrawStatus === 0) {
             setWithdrawStatus(1);
         } else if (withdrawStatus === 1) {

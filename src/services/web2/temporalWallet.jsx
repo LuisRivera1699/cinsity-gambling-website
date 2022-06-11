@@ -6,7 +6,7 @@ export const withdrawService = async (body) => {
     try {
         const data = await fetchWithToken(endpoint_withdraw, body, "POST");
         if (data.status === 403) {
-            throw new Error('Web32FA verification failed.');
+            throw new Error('Web3 2FA verification failed.');
         }
         const resp = await data.json();
         return resp;

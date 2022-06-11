@@ -47,7 +47,7 @@ const UserDashboard = (props) => {
         <MainLayout>
             <div className="page-section dashboard">
                 <div>
-                    <UserInfoPanel currentAccount={currentAccount}/>
+                    <UserInfoPanel currentAccount={currentAccount} hasWeb32FA={hasWeb32FA}/>
                     <SettingsPanel onClick={handleOpenSettingsModal} />
                 </div>
                 <TokensDashboard currentAccount={currentAccount}/>
