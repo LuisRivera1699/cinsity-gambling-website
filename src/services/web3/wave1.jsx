@@ -29,7 +29,6 @@ export const getWave1Balance = async (address, setWave1Balance) => {
             alert("Man, go and get Metamask!");
         }
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }

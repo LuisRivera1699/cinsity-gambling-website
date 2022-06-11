@@ -30,7 +30,6 @@ export const getFoundersPassBalances = async (address, setPassesBalances) => {
             alert("Man, go and get Metamask!");
         }
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }

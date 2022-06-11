@@ -4,6 +4,7 @@ import editIcon from "./assets/edit.png";
 import InputField from "../../../../InputField";
 import { editNickname, getMyNickname } from "../../../../../services/web2/nickname";
 import { getAuthMessage, getAuthMessageSignature } from "../../../../../utils/functions/authMessage";
+import { toast } from "react-toastify";
 
 const NicknameField = (props) => {
     const [status, setStatus] = useState(0);
@@ -34,14 +35,27 @@ const NicknameField = (props) => {
             e.preventDefault();
             let nicknameValue = nicknameInput.current.value;
             let authMessage = getAuthMessage(props.currentAccount);
-            const signedMessage = await getAuthMessageSignature(authMessage, false);
-            const body = {
-                address: props.currentAccount,
-                token: authMessage,
-                signature: signedMessage,
-                nickname: nicknameValue
-            }
-            await editNickname(body);
+            await toast.promise(
+                async () => {
+                    const signedMessage = await getAuthMessageSignature(authMessage, false);
+                    const body = {
+                        address: props.currentAccount,
+                        token: authMessage,
+                        signature: signedMessage,
+                        nickname: nicknameValue
+                    }
+                    await editNickname(body);
+                },
+                {
+                    pending: 'Updating nickname...',
+                    success: 'Nickname successfuly updated!',
+                    error: {
+                        render({data}) {
+                            return data.message;
+                        }
+                    }
+                }
+            );
             setNickname(nicknameValue);
         }
     }

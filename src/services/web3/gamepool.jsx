@@ -19,8 +19,7 @@ export const getFunds = async (address, setFunds) => {
             alert("Man, go and get Metamask!");
         }
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }
 
@@ -47,8 +46,7 @@ export const addFunds = async (amount) => {
             alert("Man, go and get Metamask!");
         }
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }
 
@@ -69,7 +67,6 @@ export const withdrawFunds = async (amount) => {
             alert("Man, go and get Metamask!");
         }
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }

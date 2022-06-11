@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { useAuthContext } from "../../context/AuthContext";
 import { checkIfUserHasWristband, mintWristband, updateRenewDate } from "../../services/web3/wristband";
 import MintModal from "../Modals/MintModal";
@@ -18,12 +18,12 @@ const MainLayout = (props) => {
 
     const mintAgeVerificationWristband = async () => {
         await mintWristband();
-        login();
+        handleLogin();
     }
 
     const updateAgeVerificationWristbandRenewDate = async () => {
         await updateRenewDate(currentAccount);
-        login();
+        handleLogin();
     }
 
     useEffect(() => {
@@ -40,9 +40,24 @@ const MainLayout = (props) => {
         }
     }, [needWristband, currentAccount]);
 
+    const handleLogin = async () => {
+        await toast.promise(
+            login(),
+            {
+                pending: 'Login in progress...',
+                success: 'Successful login!',
+                error: {
+                    render({data}) {
+                        return data.message;
+                    }
+                }
+            }
+        );
+    }
+
     return(
         <div>
-            <Header currentAccount={currentAccount} connectWallet={login} isAuthenticated={isAuthenticated}/>
+            <Header currentAccount={currentAccount} connectWallet={handleLogin} isAuthenticated={isAuthenticated}/>
             {props.children}
             <Footer/>
             <MintModal type={modalType} visible={needWristband} mintMethod={mintAgeVerificationWristband} renewMethod={updateAgeVerificationWristbandRenewDate}/>

@@ -14,7 +14,7 @@ const SettingsModal = (props) => {
                 await setSignature(props.hasWeb32FA, signedPwd);
             },
             {
-                pending: false,
+                pending: 'Web32FA in progress...',
                 success: 'Web32FA Password signature successfully created/updated!',
                 error: {
                     render({data}) {

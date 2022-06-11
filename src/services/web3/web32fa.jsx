@@ -72,7 +72,6 @@ export const validateSignature = async (address, signature) => {
         }
 
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }

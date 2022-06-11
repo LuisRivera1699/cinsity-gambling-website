@@ -19,8 +19,7 @@ export const checkIfUserHasWristband = async (address) => {
             alert("Man, go and get Metamask!");
         }
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }
 
@@ -48,8 +47,7 @@ export const mintWristband = async () => {
             alert("Man, go and get Metamask!");
         }
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }
 
@@ -68,8 +66,7 @@ export const getWristbandRenewDate = async (address, setRenewDate) => {
             alert("Man, go and get Metamask!");
         }
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }
 
@@ -96,7 +93,6 @@ export const updateRenewDate = async (address) => {
             alert("Man, go and get Metamask!");
         }
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }

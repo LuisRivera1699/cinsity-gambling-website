@@ -19,8 +19,7 @@ export const getUserNickname = async (address, setNickname) => {
             alert("Man, go and get Metamask!");
         }
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }
 
@@ -50,7 +49,6 @@ export const setUserNickname = async (nickname, update, setNickname) => {
             alert("Man, go and get Metamask!");
         }
     } catch (error) {
-        alert("An error has ocurred, refresh the page and try again.");
-        console.error(error);
+        throw error;
     }
 }

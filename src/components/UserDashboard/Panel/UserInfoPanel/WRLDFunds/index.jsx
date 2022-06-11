@@ -43,7 +43,7 @@ const WRLDFunds = (props) => {
                 await toast.promise(
                     addWrldFunds(toCharge, cinAddress),
                     {
-                        pending: false,
+                        pending: 'Funding CinSity Wallet with $WRLD...',
                         success: 'Successfully added funds!',
                         error: {
                             render({data}) {
@@ -85,7 +85,7 @@ const WRLDFunds = (props) => {
                 await withdrawService(body);
             },
             {
-                pending: false,
+                pending: 'Withdraw in process...',
                 success: 'Successfully withdrew!',
                 error: {
                     render({data}) {
