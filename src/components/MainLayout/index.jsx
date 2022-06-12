@@ -8,6 +8,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import "./index.css";
 import 'react-toastify/dist/ReactToastify.css';
+import Headband from "../Headband";
 
 const MainLayout = (props) => {
 
@@ -58,6 +59,7 @@ const MainLayout = (props) => {
     return(
         <div>
             <Header currentAccount={currentAccount} connectWallet={handleLogin} isAuthenticated={isAuthenticated}/>
+            <Headband/>
             {props.children}
             <Footer/>
             <MintModal type={modalType} visible={needWristband} mintMethod={mintAgeVerificationWristband} renewMethod={updateAgeVerificationWristbandRenewDate}/>

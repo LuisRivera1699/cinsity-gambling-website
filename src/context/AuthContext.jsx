@@ -9,6 +9,7 @@ export const AuthProvider = ({children}) => {
     const [currentAccount, setCurrentAccount] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(null);
     const [needWristband, setNeedWristband] = useState(null);
+    const [chainId, setChanId] = useState("0x13881");
 
     const checkIfWalletIsConnectedAndLoggedIn = async () => {
         const { ethereum } = window;
@@ -33,6 +34,8 @@ export const AuthProvider = ({children}) => {
         if (resp.success === true) {
             setIsAuthenticated(true);
             setCurrentAccount(lSAccount);
+            let chainId = await ethereum.request({method: 'eth_chainId'});
+            setChanId(chainId);
         } else {
             localStorage.clear();
             sessionStorage.clear();
@@ -111,6 +114,9 @@ export const AuthProvider = ({children}) => {
                     }
                 }
             );
+            window.ethereum.on('chainChanged', function(chainId){
+                setChanId(chainId);
+            });
         }
     });
 
@@ -123,7 +129,8 @@ export const AuthProvider = ({children}) => {
         login,
         logout,
         isAuthenticated,
-        needWristband
+        needWristband,
+        chainId
     }
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
