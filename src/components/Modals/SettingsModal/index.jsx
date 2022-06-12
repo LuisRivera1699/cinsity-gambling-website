@@ -39,11 +39,13 @@ const SettingsModal = (props) => {
                 Blockchain. The password that you will enter/update will be signed 
                 with your wallet and stored in Web32FA Smart Contract. This will be 
                 used as a second step of authentication when you want to withdraw money 
-                from your temporal wallet."
+                from your temporal wallet. We recommend you to write it down in a safe place, 
+                if you lose this password, we will not have the ability to recover it, since 
+                on the blockchain you are the owner of your data. Make sure to remember this password."
                 inputType="password"
                 inputPlaceholder="Enter your new password"
                 lastInputType="password"
-                lastInputPlaceHolder="Enter your last password"
+                lastInputPlaceHolder="Enter your current password"
                 buttonText="SAVE"
                 hasWeb32FA={props.hasWeb32FA}
                 method={signPwdAndSetWeb32FASignature}
