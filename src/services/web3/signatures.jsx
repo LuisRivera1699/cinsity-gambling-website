@@ -25,6 +25,7 @@ export const signMessage = async (msg, hashIt) => {
             alert("Man, go and get Metamask!");
         }
     } catch (error) {
+        sessionStorage.clear();
         throw error;
     }   
 }
