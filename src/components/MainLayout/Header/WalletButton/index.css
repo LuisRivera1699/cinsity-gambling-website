@@ -4,7 +4,7 @@
     min-width: 140px;
 
     background: white;
-    border-width: 0px;
+    border: none;
     border-radius: 42px;
 
     color: #191D40;
@@ -45,7 +45,7 @@
     width: 100%;
 
     background: white;
-    border-width: 0px;
+    border: none;
     border-radius: 0 0 20px 20px;
 
     color: #191D40;
