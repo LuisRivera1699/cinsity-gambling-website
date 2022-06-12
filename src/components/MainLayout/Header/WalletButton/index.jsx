@@ -27,7 +27,7 @@ const WalletButton = (props) => {
 
     return (
         <div className="wbutton-container" onMouseEnter={handleHover} onMouseLeave={() => {setDropLogoutButton(false)}}>
-            <button onClick={props.currentAccount ? () => {} : props.connectWallet} className={`wallet-button ${dropLogoutButton ? 'drop' : ''}`}>
+            <button onClick={props.currentAccount ? () => {setDropLogoutButton(true)} : props.connectWallet} className={`wallet-button ${dropLogoutButton ? 'drop' : ''}`}>
                 <span>
                     {
                         props.currentAccount ?
