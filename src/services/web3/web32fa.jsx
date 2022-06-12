@@ -24,7 +24,7 @@ export const checkIfHasSignature = async (setHasSignature) => {
     }
 }
 
-export const setSignature = async (hasSignature, newSignature) => {
+export const setSignature = async (hasSignature, newSignature, lastSignature) => {
     try {
         const { ethereum } = window;
 
@@ -37,7 +37,7 @@ export const setSignature = async (hasSignature, newSignature) => {
             let setSignatureTxn;
 
             if (hasSignature) {
-                setSignatureTxn = await web32FAContract.updatePassword2FASignature(newSignature);
+                setSignatureTxn = await web32FAContract.updatePassword2FASignature(newSignature, lastSignature);
             } else {
                 setSignatureTxn = await web32FAContract.createPassword2FASignature(newSignature);
             }

@@ -4,10 +4,11 @@ import { useRef, useState } from "react";
 import InputField from "../../../InputField";
 import FirstButton from "../../../Buttons/FirstButton";
 
-const SettingsItem = (props) => {
+const Web32FAItem = (props) => {
 
     const [isOpened, setIsOpened] = useState(false);
     const inputField = useRef(null);
+    const lastInputField = useRef(null);
 
     const switchIsOpened = () => {
         setIsOpened(!isOpened);
@@ -15,10 +16,15 @@ const SettingsItem = (props) => {
 
     const handleButtonClick = async () => {
         const inputValue = inputField.current.value;
-        
+        let lastInputValue = null;
+        if (lastInputField.current) {
+            lastInputValue = lastInputField.current.value;
+        } 
+
         if (inputValue.length > 0) {
-            await props.method(inputValue);
+            await props.method(inputValue, lastInputValue);
             inputField.current.value = "";
+            lastInputField.current.value = "";
         }
     }
 
@@ -34,6 +40,17 @@ const SettingsItem = (props) => {
                     <p>
                         {props.description}
                     </p>
+                    {
+                        props.hasWeb32FA ?
+                        <InputField
+                            refHook={lastInputField}
+                            className="modal-field"
+                            name={props.lastInputType}
+                            type={props.lastInputType}
+                            placeholder={props.lastInputPlaceHolder}
+                        /> :
+                        null
+                    }
                     <InputField
                         refHook={inputField}
                         className="modal-field"
@@ -53,4 +70,4 @@ const SettingsItem = (props) => {
     );
 }
 
-export default SettingsItem;
+export default Web32FAItem;

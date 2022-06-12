@@ -3,15 +3,19 @@ import BaseModal from "..";
 import { signMessage } from "../../../services/web3/signatures";
 import { setSignature } from "../../../services/web3/web32fa";
 import "./index.css";
-import SettingsItem from "./SettingsItem";
+import Web32FAItem from "./Web32FAItem";
 
 const SettingsModal = (props) => {
 
-    const signPwdAndSetWeb32FASignature = async (pwd) => {
+    const signPwdAndSetWeb32FASignature = async (pwd, lpwd) => {
         await toast.promise( 
             async () => {
                 const signedPwd = await signMessage(pwd, true);
-                await setSignature(props.hasWeb32FA, signedPwd);
+                let lastSignedPwd = null;
+                if (props.hasWeb32FA) {
+                    lastSignedPwd = await signMessage(lpwd, true);
+                } 
+                await setSignature(props.hasWeb32FA, signedPwd, lastSignedPwd);
             },
             {
                 pending: 'Web32FA in progress...',
@@ -29,7 +33,7 @@ const SettingsModal = (props) => {
     return (
         <BaseModal visible={props.visible} canCloseOutside={true} hide={props.hide}>
             <h3 className="modal-title">Settings</h3>
-            <SettingsItem
+            <Web32FAItem
                 title="Web3 2FA (Two Factor Authentication)"
                 description="Web3 2FA is a two factor authentication feature build on Polygon 
                 Blockchain. The password that you will enter/update will be signed 
@@ -38,7 +42,10 @@ const SettingsModal = (props) => {
                 from your temporal wallet."
                 inputType="password"
                 inputPlaceholder="Enter your new password"
+                lastInputType="password"
+                lastInputPlaceHolder="Enter your last password"
                 buttonText="SAVE"
+                hasWeb32FA={props.hasWeb32FA}
                 method={signPwdAndSetWeb32FASignature}
             />
         </BaseModal>
